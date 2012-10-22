@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#cadastrar.xhtml" PATH="/cadastrar.xhtml"
+  SHAPE="48,48,50,41" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#cadastrar.xhtml:0" NAME="item"
+   PATH="/cadastrar.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{usuarioBean.cadastrar}:#tela-sucesso.xhtml"
+    NAME="output" PATH="/tela-sucesso.xhtml"
+    TARGET="rules:#tela-sucesso.xhtml"
+    TITLE="#{usuarioBean.cadastrar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="erro::#tela-erro.xhtml" NAME="output1"
+    PATH="/tela-erro.xhtml" TARGET="rules:#tela-erro.xhtml" TITLE="erro" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#tela-erro.xhtml" PATH="/tela-erro.xhtml"
+  SHAPE="152,120,50,25" model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#tela-sucesso.xhtml"
+  PATH="/tela-sucesso.xhtml" SHAPE="184,72,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
+</PROCESS>
