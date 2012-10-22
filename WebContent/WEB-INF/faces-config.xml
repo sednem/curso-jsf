@@ -2,14 +2,14 @@
 <faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee  http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
-	
+
 	<application>
 		<resource-bundle>
 			<base-name>br.ufpe.nti.properties.mensagens</base-name>
 			<var>msg</var>
 		</resource-bundle>
 	</application>
-	
+	<!-- Tela de cadastro -->
 	<navigation-rule>
 		<from-view-id>/cadastrar.xhtml</from-view-id>
 		<navigation-case>
@@ -22,4 +22,18 @@
 			<to-view-id>/tela-erro.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
+	<!-- Tela de login -->
+	<navigation-rule>
+		<from-view-id>/*</from-view-id>
+		<navigation-case>
+			<from-outcome>loginPage</from-outcome>
+			<to-view-id>/login.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<lifecycle>
+		<phase-listener>br.ufpe.nti.ui.jsf.AuthPhaseListener</phase-listener>
+	</lifecycle>
+
 </faces-config>

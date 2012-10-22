@@ -1,21 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PROCESS model-entity="JSFProcess">
- <PROCESS-ITEM NAME="rules:#cadastrar.xhtml" PATH="/cadastrar.xhtml"
-  SHAPE="48,48,50,41" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#cadastrar.xhtml:0" NAME="item"
-   PATH="/cadastrar.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT
-    ID="sucesso:#{usuarioBean.cadastrar}:#tela-sucesso.xhtml"
-    NAME="output" PATH="/tela-sucesso.xhtml"
-    TARGET="rules:#tela-sucesso.xhtml"
-    TITLE="#{usuarioBean.cadastrar}:sucesso" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="erro::#tela-erro.xhtml" NAME="output1"
-    PATH="/tela-erro.xhtml" TARGET="rules:#tela-erro.xhtml" TITLE="erro" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#tela-erro.xhtml" PATH="/tela-erro.xhtml"
   SHAPE="152,120,50,25" model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#tela-sucesso.xhtml"
   PATH="/tela-sucesso.xhtml" SHAPE="184,72,50,25"
   model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#*" PATH="/*" SHAPE="32,273,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#*:0" NAME="item" PATH="/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="loginPage::#pages#login.xhtml" NAME="output"
+    PATH="/pages/login.xhtml" TARGET="rules:#pages#login.xhtml"
+    TITLE="loginPage" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#usuario#cadastrar.xhtml"
+  PATH="/pages/usuario/cadastrar.xhtml" SHAPE="32,353,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#usuario#cadastrar.xhtml:0" NAME="item"
+   PATH="/pages/usuario/cadastrar.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucesso:#{usuarioBean.cadastrar}:#pages#tela-sucesso.xhtml"
+    NAME="output" PATH="/pages/tela-sucesso.xhtml"
+    TARGET="rules:#pages#tela-sucesso.xhtml"
+    TITLE="#{usuarioBean.cadastrar}:sucesso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="erro::#pages#tela-erro.xhtml" NAME="output1"
+    PATH="/pages/tela-erro.xhtml" TARGET="rules:#pages#tela-erro.xhtml"
+    TITLE="erro" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#tela-sucesso.xhtml"
+  PATH="/pages/tela-sucesso.xhtml" SHAPE="256,369,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#tela-erro.xhtml"
+  PATH="/pages/tela-erro.xhtml" SHAPE="256,513,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#login.xhtml" PATH="/pages/login.xhtml"
+  SHAPE="240,257,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

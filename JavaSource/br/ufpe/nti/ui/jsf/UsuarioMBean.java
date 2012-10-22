@@ -11,6 +11,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 
 import br.ufpe.nti.entity.Usuario;
 
@@ -35,6 +37,7 @@ public class UsuarioMBean implements Serializable {
 	 * @return Outcome da navigation rule
 	 */
 	public String cadastrar(){	
+		System.out.println("Executando UsuarioMBean.cadastrar()");
 		String outcome = "";
 		
 		if(this.validarUsuario(this.usuario, confSenha)){
@@ -52,6 +55,42 @@ public class UsuarioMBean implements Serializable {
 			outcome = "erro";
 		}
 		return outcome;
+	}
+	
+	
+	/**
+	 * Verifica a disponibilidade de um login
+	 * @param e ActionEvent
+	 */
+	public void verificarDisponibilidadeLogin(ActionEvent e){
+		
+		if(existeNomeUsuario(this.getUsuario().getLogin())){
+			
+			FacesMessage msg = new FacesMessage(
+					this.getValue("cadastrar.usuario.username.indisponivel"));
+			FacesContext.getCurrentInstance().addMessage("usuario", msg);
+			
+		}else{
+			
+			FacesMessage msg = new FacesMessage(
+					this.getValue("cadastrar.usuario.username.disponivel"));
+			FacesContext.getCurrentInstance().addMessage("usuario", msg);
+		}
+		
+		System.out.println(e.getComponent().getClass());
+	}
+	
+	/**
+	 * Excuta quando um valor é alterado
+	 * @param ce ValueChangeEvent
+	 */
+	public void valorAlterado(ValueChangeEvent ce){
+		System.out.println();
+		System.out.println("Valor anterior: " + ce.getOldValue());
+		System.out.println("Valor novo: " + ce.getNewValue());
+		System.out.println("Valor login atual: " + this.usuario.getLogin());
+		System.out.println();
+		
 	}
 	
 	/**

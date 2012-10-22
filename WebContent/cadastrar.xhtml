@@ -10,7 +10,11 @@
 		<h:graphicImage id="img" library="default" value="img/livro.png" />
 		<h:panelGrid columns="3">
 			<h:outputLabel for="usuario" value="#{msg.usuario}:" />
-			<h:inputText id="usuario" value="#{usuarioBean.usuario.login}" />
+			<h:column>
+				<h:inputText id="usuario" value="#{usuarioBean.usuario.login}" />
+				<h:commandButton value="#{msg['verificar.disponibilidade']}"
+					actionListener="#{usuarioBean.verificarDisponibilidadeLogin}" />
+			</h:column>
 			<h:message for="usuario" />
 
 			<h:outputLabel for="senha" value="#{msg.senha}:" />
