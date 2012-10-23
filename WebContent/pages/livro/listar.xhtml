@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"> 
+<h:head>
+</h:head> 
+<h:body>
+	<h:form prependId="false">
+		<h:button value="#{msg['cadastrar.livro']}" outcome="cadastrar" />
+		<h:dataTable value="#{livroBean.livros}" var="l" border="1">
+			<f:facet name="header">
+				#{msg['livros.cadastrados']}
+			</f:facet>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{msg.titulo}" />
+				</f:facet>
+				<h:outputText value="#{l.titulo}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{msg.editora}" />
+				</f:facet>
+				<h:outputText value="#{l.editora.nome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{msg.autor}" />
+				</f:facet>
+				<h:outputText value="#{l.autor}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{msg['data.publicacao']}" />
+				</f:facet>
+				<h:outputText value="#{l.dataPublicacao}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{msg.preco}" />
+				</f:facet>
+				<h:outputText value="#{l.preco}" />
+			</h:column>
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>

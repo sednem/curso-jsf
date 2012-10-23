@@ -5,10 +5,9 @@
 
 <h:head></h:head> 
 <body> 
-	<h:form id="form">
-		<h:link value="Cadastrar Usuário" outcome="cadastrar"/>
-		<br />
-		<h:commandLink value="Sair" action="#{loginBean.sair}" />		
-	</h:form>
+	<h:graphicImage value="/resources/img/erro.png" />
+	<h:messages />
+	<br />
+	<h:button value="Voltar" outcome="/pages/home" />
 </body> 
 </html>

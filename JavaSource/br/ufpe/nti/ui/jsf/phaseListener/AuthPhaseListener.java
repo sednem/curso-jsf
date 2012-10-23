@@ -1,4 +1,4 @@
-package br.ufpe.nti.ui.jsf;
+package br.ufpe.nti.ui.jsf.phaseListener;
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
@@ -12,14 +12,14 @@ public class AuthPhaseListener implements PhaseListener{
 	//Método executado antes de uma fase
 	@Override
 	public void beforePhase(PhaseEvent pe) {
-		System.out.println("Antes da fase: "
-				+ pe.getPhaseId().toString() + " invoked.");
+		//System.out.println("Antes da fase: "
+		//		+ pe.getPhaseId().toString() + " invoked.");
 	}	
 	//Método executado após uma fase
 	@Override
 	public void afterPhase(PhaseEvent pe) {
-		System.out.println("Após da fase: "
-				+ pe.getPhaseId().toString() + " invoked.");
+		//System.out.println("Após da fase: "
+		//		+ pe.getPhaseId().toString() + " invoked.");
 
 		//Recupera a página da requisição
 		FacesContext facesContext = pe.getFacesContext();

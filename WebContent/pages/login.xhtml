@@ -7,13 +7,13 @@
 <body>
 	<h:form id="formLogin">
 		<center>
-			<h:graphicImage id="img" value="livro.png" />
+			<h:graphicImage id="img" value="/resources/img/livro.png" />
 			<h:panelGrid columns="2">
 				<h:outputLabel for="usuario" value="#{msg.usuario}:" />
-				<h:inputText id="usuario" value="#{loginBean.login}" />
+				<h:inputText id="usuario" value="#{loginBean.usuario.login}" />
 
 				<h:outputLabel for="senha" value="#{msg.senha}:" />
-				<h:inputSecret id="senha" value="#{loginBean.senha}" />
+				<h:inputSecret id="senha" value="#{loginBean.usuario.senha}" />
 
 				<h:column />
 				<h:commandButton action="#{loginBean.autenticar}" value="Entrar">

@@ -4,30 +4,39 @@ import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import br.ufpe.nti.business.Fachada;
+import br.ufpe.nti.business.UsuarioBC;
+import br.ufpe.nti.entity.Usuario;
+
 @ManagedBean(name="loginBean")
+@SessionScoped
 public class LoginMBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String login;
-	private String senha;
+	private Usuario usuario;
 
 	public LoginMBean(){
-
+		this.usuario = new Usuario();
 	}
 
 	public String autenticar(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
-		if(this.login.equals("Renato")
-				&& this.senha.equals("Qwert123")){
+		UsuarioBC usuarioBC = Fachada.getInstance().getUsuarioBC();
+		
+		if(usuarioBC.usuarioValido(this.usuario.getLogin(), 
+				this.usuario.getSenha())){
 
 			//Adiciona o usuario na sessão
 			HttpSession session = (HttpSession) 
 					facesContext.getExternalContext().getSession(true);
-			session.setAttribute("currentUser", "Renato");
+			this.usuario = usuarioBC.consultarPorLogin(this.usuario.getLogin());
+			
+			session.setAttribute("currentUser", this.usuario);
 
 			return "home";
 		}else{
@@ -44,24 +53,17 @@ public class LoginMBean implements Serializable {
 		HttpSession session = 
 				(HttpSession) facesContext.getExternalContext().getSession(true);
 		session.invalidate();
-
+		
+		this.usuario = new Usuario();
+		
 		return "loginPage";
 	}
 
-	public String getLogin() {
-		return login;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
 }

@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"> 
+<h:head>
+</h:head> 
+<h:body>
+	<h:form prependId="false">
+		<h:panelGrid columns="3">
+			<h:outputLabel for="isbn" value="#{msg['livro.isbn']}:" />
+			<h:inputText id="isbn" value="" />
+			<h:message for="isbn" />
+
+			<h:outputLabel for="titulo" value="#{msg.titulo}:" />
+			<h:inputSecret id="titulo" value="" />
+			<h:message for="titulo" />
+
+			<h:outputLabel for="autor" value="#{msg.autor}:" />
+			<h:inputSecret id="autor" value="" />
+			<h:message for="autor" />
+
+			<h:outputLabel for="editora" value="#{msg.editora}:" />
+			<h:inputSecret id="editora" value="Faremos depois" />
+			<h:message for="editora" />
+
+			<h:outputLabel for="dataPub" value="#{msg['data.publicacao']}:" />
+			<h:inputSecret id="dataPub" value="" />
+			<h:message for="dataPub" />
+
+			<h:outputLabel for="preco" value="#{msg.preco}:" />
+			<h:inputSecret id="preco" value="" />
+			<h:message for="preco" />
+
+			<h:commandButton action="#{livroBean.cadastrar}" value="#{msg['cadastrar']}">
+				<f:ajax execute="@form" render="@all" />
+			</h:commandButton>
+			<h:commandButton value="#{msg.cancelar}" action="listar" immediate="true"/>
+		</h:panelGrid>
+		
+		<h:messages id="msgs" globalOnly="true"/>
+	</h:form>
+</h:body>
+</html>

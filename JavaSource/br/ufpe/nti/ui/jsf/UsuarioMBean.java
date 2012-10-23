@@ -2,8 +2,6 @@ package br.ufpe.nti.ui.jsf;
 
 import java.io.Serializable;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -14,6 +12,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 
+import br.ufpe.nti.business.Fachada;
 import br.ufpe.nti.entity.Usuario;
 
 @ManagedBean(name="usuarioBean")
@@ -22,14 +21,14 @@ public class UsuarioMBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Usuario usuario;
-	private List<Usuario> usuarios;
 	private String confSenha;
 	private ResourceBundle bundle;
+	
+	private Fachada f = Fachada.getInstance();
 	
 	//Contrutor do Managed Bean
 	public UsuarioMBean(){
 		this.usuario = new Usuario();
-		this.usuarios = new ArrayList<Usuario>();
 	}
 	
 	/**
@@ -37,11 +36,10 @@ public class UsuarioMBean implements Serializable {
 	 * @return Outcome da navigation rule
 	 */
 	public String cadastrar(){	
-		System.out.println("Executando UsuarioMBean.cadastrar()");
 		String outcome = "";
 		
 		if(this.validarUsuario(this.usuario, confSenha)){
-			this.usuarios.add(usuario);
+			f.getUsuarioBC().inserir(usuario);
 			
 			String msg = this.getValue("cadastrar.usuario.sucesso");
 			msg = MessageFormat.format(msg, usuario.getLogin());
@@ -75,9 +73,7 @@ public class UsuarioMBean implements Serializable {
 			FacesMessage msg = new FacesMessage(
 					this.getValue("cadastrar.usuario.username.disponivel"));
 			FacesContext.getCurrentInstance().addMessage("usuario", msg);
-		}
-		
-		System.out.println(e.getComponent().getClass());
+		}		
 	}
 	
 	/**
@@ -131,7 +127,7 @@ public class UsuarioMBean implements Serializable {
 	 */
 	private boolean existeNomeUsuario(String nomeUsuario) {
 		boolean existe = false;
-		for (Usuario usuario : this.usuarios) {
+		for (Usuario usuario : f.getUsuarioBC().listar()) {
 			if(usuario.getLogin().equals(nomeUsuario)){
 				existe = true;
 				break;
@@ -175,14 +171,6 @@ public class UsuarioMBean implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-
-	public List<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
 	}
 
 	public String getConfSenha() {

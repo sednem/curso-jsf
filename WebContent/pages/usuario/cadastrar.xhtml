@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"> 
@@ -7,7 +6,6 @@
 </h:head> 
 <body> 
 	<h:form id="formUsuario" prependId="false">
-		<h:graphicImage id="img" library="default" value="img/livro.png" />
 		<h:panelGrid columns="3">
 			<h:outputLabel for="usuario" value="#{msg.usuario}:" />
 			<h:column>
@@ -50,7 +48,7 @@
 				value="#{usuarioBean.usuario.dataNascimento}">
 				<f:convertDateTime pattern="#{msg['data.pattern']}" />
 			</h:inputText>
-			<h:message for="dt_nasc" />
+			<h:message for="dt_nasc" showSummary="true" showDetail="false"/>
 
 			<h:commandButton action="#{usuarioBean.cadastrar}" value="#{msg['cadastrar.usuario']}">
 				<f:ajax execute="@form" render="@all" />

@@ -5,9 +5,10 @@
 
 <h:head></h:head> 
 <body> 
-	<h:graphicImage value="/erro.png" />
-	<h:messages />
-	<br />
-	<h:button value="Voltar" outcome="cadastrar" />
+	<h:form id="form">
+		<h:outputText value="#{testeBean.numero}">
+			<f:converter converterId="javax.faces.Number"/>
+		</h:outputText>
+	</h:form>
 </body> 
 </html>
