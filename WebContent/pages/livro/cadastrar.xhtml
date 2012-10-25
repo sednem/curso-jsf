@@ -8,28 +8,34 @@
 	<h:form prependId="false">
 		<h:panelGrid columns="3">
 			<h:outputLabel for="isbn" value="#{msg['livro.isbn']}:" />
-			<h:inputText id="isbn" value="" />
+			<h:inputText id="isbn" value="#{livroBean.livro.isbn}" />
 			<h:message for="isbn" />
 
 			<h:outputLabel for="titulo" value="#{msg.titulo}:" />
-			<h:inputSecret id="titulo" value="" />
+			<h:inputText id="titulo" value="#{livroBean.livro.titulo}" />
 			<h:message for="titulo" />
 
 			<h:outputLabel for="autor" value="#{msg.autor}:" />
-			<h:inputSecret id="autor" value="" />
+			<h:inputText id="autor" value="#{livroBean.livro.autor}" />
 			<h:message for="autor" />
 
 			<h:outputLabel for="editora" value="#{msg.editora}:" />
-			<h:inputSecret id="editora" value="Faremos depois" />
-			<h:message for="editora" />
+			<h:selectOneMenu id="editora" value="#{livroBean.livro.editora}">
+				<f:selectItems value="#{livroBean.editoras}"
+					var="ed" itemLabel="#{ed.nome}" itemValue="#{ed}"/>
+			</h:selectOneMenu>
+			<h:message for="editora" errorStyle="color: red;"/>
 
 			<h:outputLabel for="dataPub" value="#{msg['data.publicacao']}:" />
-			<h:inputSecret id="dataPub" value="" />
-			<h:message for="dataPub" />
+			<h:inputText id="dataPub" value="#{livroBean.livro.dataPublicacao}"
+				label="#{msg['data.publicacao']}">
+				<f:convertDateTime locale="pt_BR"/>
+			</h:inputText>
+			<h:message for="dataPub"/>
 
 			<h:outputLabel for="preco" value="#{msg.preco}:" />
-			<h:inputSecret id="preco" value="" />
-			<h:message for="preco" />
+			<h:inputText id="preco" value="#{livroBean.livro.preco}" />
+			<h:message for="preco"/>
 
 			<h:commandButton action="#{livroBean.cadastrar}" value="#{msg['cadastrar']}">
 				<f:ajax execute="@form" render="@all" />
@@ -37,7 +43,7 @@
 			<h:commandButton value="#{msg.cancelar}" action="listar" immediate="true"/>
 		</h:panelGrid>
 		
-		<h:messages id="msgs" globalOnly="true"/>
+		<h:messages id="msgs"/>
 	</h:form>
 </h:body>
 </html>

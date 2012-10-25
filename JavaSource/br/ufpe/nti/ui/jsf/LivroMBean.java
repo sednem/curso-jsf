@@ -23,12 +23,13 @@ public class LivroMBean implements Serializable {
 	Fachada f = Fachada.getInstance();
 	
 	public LivroMBean(){
+		this.livro = new Livro();
 		this.livros = f.getLivroBC().listar();
 		this.editoras = f.getEditoraBC().listar();
 	}
 	
 	public String cadastrar(){
-		
+		System.out.println(this.livro.getEditora().getNome());
 		return "";
 	}
 	

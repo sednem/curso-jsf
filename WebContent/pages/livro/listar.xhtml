@@ -11,6 +11,9 @@
 			<f:facet name="header">
 				#{msg['livros.cadastrados']}
 			</f:facet>
+			<f:facet name="footer">
+				#{msg['livros.cadastrados']}
+			</f:facet>
 			<h:column>
 				<f:facet name="header">
 					<h:outputText value="#{msg.titulo}" />
@@ -33,13 +36,19 @@
 				<f:facet name="header">
 					<h:outputText value="#{msg['data.publicacao']}" />
 				</f:facet>
-				<h:outputText value="#{l.dataPublicacao}" />
+				<h:outputText value="#{l.dataPublicacao}">
+					<f:convertDateTime 
+					type="date" locale="#{msg['locale.default']}"/>
+				</h:outputText>
 			</h:column>
 			<h:column>
 				<f:facet name="header">
 					<h:outputText value="#{msg.preco}" />
 				</f:facet>
-				<h:outputText value="#{l.preco}" />
+				<h:outputText value="#{l.preco}">
+					<f:convertNumber locale="#{msg['locale.default']}"
+						type="currency" minFractionDigits="2" maxFractionDigits="2"/>
+				</h:outputText>
 			</h:column>
 		</h:dataTable>
 	</h:form>

@@ -4,6 +4,11 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee  http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
 	<application>
+		<message-bundle>br.ufpe.nti.properties.system</message-bundle>
+		<locale-config>
+			<default-locale>en</default-locale>
+			<supported-locale>pt_BR</supported-locale>
+		</locale-config>
 		<resource-bundle>
 			<base-name>br.ufpe.nti.properties.mensagens</base-name>
 			<var>msg</var>

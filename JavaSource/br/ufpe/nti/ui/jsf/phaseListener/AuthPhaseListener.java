@@ -32,6 +32,8 @@ public class AuthPhaseListener implements PhaseListener{
 		HttpSession session = (HttpSession) 
 				facesContext.getExternalContext().getSession(true);
 		Object currentUser = session.getAttribute("currentUser");
+		
+		
 
 		//Se não for tel delogin e não tiver usuário na sessão
 		if (!isLoginPage && currentUser == null) {
