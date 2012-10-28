@@ -16,7 +16,7 @@
 				<h:inputSecret id="senha" value="#{loginBean.usuario.senha}" />
 
 				<h:column />
-				<h:commandButton action="#{loginBean.autenticar}" value="Entrar">
+				<h:commandButton action="#{loginBean.autenticar}" value="#{msg.login}">
 					<f:ajax execute="@form" render="@all" />
 				</h:commandButton>
 			</h:panelGrid>

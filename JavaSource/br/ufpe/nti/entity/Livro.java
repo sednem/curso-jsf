@@ -3,15 +3,32 @@ package br.ufpe.nti.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import br.ufpe.nti.entity.beanValidation.ISBN;
+
 public class Livro implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private long id;
+	
+	@ISBN
 	private String isbn; //Deve conter 13 dígitos.
+	
+	@Size(min=1,message="{validation.campo.obrigatorio}")
 	private String autor;
+	
+	@NotNull(message="{validation.campo.obrigatorio}")
 	private Editora editora;
+	
+	@Size(min=1,message="{validation.campo.obrigatorio}")
 	private String titulo;
+	
+	@NotNull(message="{validation.campo.obrigatorio}")
 	private Float preco;
+	
+	@NotNull(message="{validation.campo.obrigatorio}")
 	private Date dataPublicacao;
 	
 	public Livro(){}
