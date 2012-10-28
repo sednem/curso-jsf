@@ -3,10 +3,12 @@
 	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee  http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
+	<!-- :: Message Bundles :: --> 
 	<application>
 		<message-bundle>br.ufpe.nti.properties.system</message-bundle>
 		<locale-config>
 			<default-locale>pt_BR</default-locale>
+			<supported-locale>en</supported-locale>
 			<supported-locale>fr</supported-locale>
 		</locale-config>
 		<resource-bundle>
@@ -14,12 +16,17 @@
 			<var>msg</var>
 		</resource-bundle>
 	</application>
+	<!-- :: Fim: Message Bundles :: -->
+	
+	<!-- :: Phase Listerners :: -->
 	<lifecycle>
 		<phase-listener>
 		br.ufpe.nti.ui.jsf.phaseListener.AuthPhaseListener
 		</phase-listener>
 	</lifecycle>
+	<!-- :: Fim: Phase Listerners :: -->
 	
+	<!-- :: Navigation Rules :: -->
 	<!-- Tela de cadastro de usuário-->
 	<navigation-rule>
 		<from-view-id>/pages/usuario/cadastrar.xhtml</from-view-id>
@@ -43,4 +50,15 @@
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
+	
+	<!-- Tela principal -->
+	<navigation-rule>
+		<from-view-id>/*</from-view-id>
+		<navigation-case>
+			<from-outcome>index</from-outcome>
+			<to-view-id>/pages/home.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<!-- :: Fim: Navigation Rules :: -->
 </faces-config>

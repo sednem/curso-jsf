@@ -38,7 +38,7 @@ public class LoginMBean implements Serializable {
 			
 			session.setAttribute("currentUser", this.usuario);
 
-			return "home";
+			return "index";
 		}else{
 			FacesMessage msg = 
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, 
