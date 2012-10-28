@@ -6,14 +6,14 @@
 <h:head></h:head> 
 <body> 
 	<h:form id="form">
-		<h:outputText id="msgUsuario" value="Bem vindo, #{loginBean.usuario.nome}" />
+		<h:outputText id="msgUsuario" value="#{msg.bemVindo}, #{loginBean.usuario.nome}" />
 		<br />
 		<br />
-		<h:link id="cadUsuario" value="Cadastrar Usuário" outcome="/pages/usuario/cadastrar"/>
+		<h:link id="cadUsuario" value="#{msg['cadastrar.usuario']}" outcome="/pages/usuario/cadastrar"/>
 		|
-		<h:link id="cadLivro" value="Livros" outcome="/pages/livro/listar"/>
+		<h:link id="cadLivro" value="#{msg['cadastrar.livro']}" outcome="/pages/livro/listar"/>
 		<br />
-		<h:commandLink id="btnSair" value="Sair" action="#{loginBean.sair}" immediate="true"/>		
+		<h:commandLink id="btnSair" value="#{msg.logout}" action="#{loginBean.sair}" immediate="true"/>		
 	</h:form>
 </body> 
 </html>

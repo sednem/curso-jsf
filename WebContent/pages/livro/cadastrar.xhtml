@@ -12,11 +12,11 @@
 			<h:message for="isbn" />
 
 			<h:outputLabel for="titulo" value="#{msg.titulo}:" />
-			<h:inputText id="titulo" value="#{livroBean.livro.titulo}" />
+			<h:inputText id="titulo" value="#{livroBean.livro.titulo}"/>
 			<h:message for="titulo" />
 
 			<h:outputLabel for="autor" value="#{msg.autor}:" />
-			<h:inputText id="autor" value="#{livroBean.livro.autor}" />
+			<h:inputText id="autor" value="#{livroBean.livro.autor}"/>
 			<h:message for="autor" />
 
 			<h:outputLabel for="editora" value="#{msg.editora}:" />
@@ -34,7 +34,9 @@
 			<h:message for="dataPub"/>
 
 			<h:outputLabel for="preco" value="#{msg.preco}:" />
-			<h:inputText id="preco" value="#{livroBean.livro.preco}" />
+			<h:inputText id="preco" value="#{livroBean.livro.preco}" >
+				<f:convertNumber locale="#{msg['locale.default']}"/>
+			</h:inputText>
 			<h:message for="preco"/>
 
 			<h:commandButton action="#{livroBean.cadastrar}" value="#{msg['cadastrar']}">

@@ -6,8 +6,8 @@
 	<application>
 		<message-bundle>br.ufpe.nti.properties.system</message-bundle>
 		<locale-config>
-			<default-locale>en</default-locale>
-			<supported-locale>pt_BR</supported-locale>
+			<default-locale>pt_BR</default-locale>
+			<supported-locale>fr</supported-locale>
 		</locale-config>
 		<resource-bundle>
 			<base-name>br.ufpe.nti.properties.mensagens</base-name>
@@ -43,5 +43,4 @@
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
-
 </faces-config>
