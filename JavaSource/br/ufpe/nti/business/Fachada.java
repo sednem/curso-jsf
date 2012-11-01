@@ -10,11 +10,13 @@ public class Fachada implements Serializable {
 	private UsuarioBC usuarioBC;
 	private LivroBC livroBC;
 	private EditoraBC editoraBC;
+	private AutorBC autorBC;
 	
 	public Fachada(){
 		this.usuarioBC = new UsuarioBC();
 		this.livroBC = new LivroBC();
 		this.editoraBC = new EditoraBC();
+		this.autorBC = new AutorBC();
 	}
 	
 	public static Fachada getInstance(){
@@ -34,5 +36,9 @@ public class Fachada implements Serializable {
 
 	public EditoraBC getEditoraBC() {
 		return editoraBC;
+	}
+
+	public AutorBC getAutorBC() {
+		return autorBC;
 	}
 }

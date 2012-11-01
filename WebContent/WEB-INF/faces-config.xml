@@ -8,6 +8,7 @@
 		<message-bundle>br.ufpe.nti.properties.system</message-bundle>
 		<locale-config>
 			<default-locale>pt_BR</default-locale>
+			<supported-locale>pt_BR</supported-locale>
 			<supported-locale>en</supported-locale>
 			<supported-locale>fr</supported-locale>
 		</locale-config>

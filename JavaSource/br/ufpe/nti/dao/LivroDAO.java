@@ -15,6 +15,7 @@ public class LivroDAO implements Serializable {
 	
 	public LivroDAO(){
 		EditoraDAO edtDAO = new EditoraDAO();
+		AutorDAO autorDAO = new AutorDAO();
 		this.livros = new ArrayList<Livro>();
 		
 		Livro l1 = new Livro();
@@ -24,6 +25,10 @@ public class LivroDAO implements Serializable {
 		l1.setIsbn("978-0071625098");
 		l1.setTitulo("JavaServer Faces 2.0, The Complete Reference");
 		l1.setAutor("Ed Burns e  Chris Schalk");
+//		List<Autor> autores1 = new ArrayList<Autor>();
+//		autores1.add(autorDAO.consultarPorId(1));
+//		autores1.add(autorDAO.consultarPorId(2));
+//		l1.setAutores(autores1);
 		l1.setEditora(edtDAO.consultarPorId(1)); 
 		l1.setPreco(28.96f);
 		l1.setDataPublicacao(FormatDate.getDate("28/12/2009"));
@@ -32,7 +37,11 @@ public class LivroDAO implements Serializable {
 		l2.setId(2);
 		l2.setIsbn("978-0137012893");
 		l2.setTitulo("Core JavaServer Faces (3rd Edition)");
-		l2.setAutor("David Geary e Cay S. Horstmann");
+		l1.setAutor("Ed Burns e  Chris Schalk");
+//		List<Autor> autores2 = new ArrayList<Autor>();
+//		autores2.add(autorDAO.consultarPorId(3));
+//		autores2.add(autorDAO.consultarPorId(4));
+//		l2.setAutores(autores2);
 		l2.setEditora(edtDAO.consultarPorId(2));
 		l2.setPreco(36.91f);
 		l2.setDataPublicacao(FormatDate.getDate("27/05/2010"));

@@ -16,24 +16,24 @@ public class EditoraDAO implements Serializable {
 		this.editoras = new ArrayList<Editora>();
 		
 		Editora e1 = new Editora();
-		Editora l2 = new Editora();
-		Editora l3 = new Editora();
+		Editora e2 = new Editora();
+		Editora e3 = new Editora();
 		
 		e1.setId(1);
 		e1.setNome("McGraw-Hill Osborne Media");
 		this.editoras.add(e1);
 
-		l2.setId(2);
-		l2.setNome("Prentice Hall");
-		this.editoras.add(l2);
+		e2.setId(2);
+		e2.setNome("Prentice Hall");
+		this.editoras.add(e2);
 
-		l3.setId(3);
-		l3.setNome("Novatec Editora");
-		this.editoras.add(l3);
+		e3.setId(3);
+		e3.setNome("Novatec Editora");
+		this.editoras.add(e3);
 	}
 	
 	/**
-	 * Persiste o usuário
+	 * Persiste a editora
 	 * @param u Editora a ser persistido
 	 */
 	public void inserir(Editora u){
@@ -41,8 +41,8 @@ public class EditoraDAO implements Serializable {
 	}
 	
 	/**
-	 * Consulta todos os usuário cadastrados
-	 * @return Lista de Editoras cadastrados
+	 * Consulta todos as editoras cadastradas
+	 * @return Lista de Editoras cadastradas
 	 */
 	public List<Editora> listar(){
 		return this.editoras;

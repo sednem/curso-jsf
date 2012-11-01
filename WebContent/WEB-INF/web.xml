@@ -7,6 +7,7 @@
 		<welcome-file>pages/home.jsf</welcome-file>
 	</welcome-file-list>
 	
+	<!-- :: JSF :: -->
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
@@ -29,4 +30,16 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>/faces/*</url-pattern>
 	</servlet-mapping>
+	<!-- :: Fim: JSF :: -->
+	
+	<!-- :: RichFaces :: -->
+	<context-param>
+        <param-name>org.richfaces.skin</param-name>
+        <param-value>plain</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.richfaces.enableControlSkinning</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <!-- :: RichFaces :: -->
 </web-app>

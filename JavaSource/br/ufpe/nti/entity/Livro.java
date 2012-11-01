@@ -16,7 +16,9 @@ public class Livro implements Serializable {
 	@ISBN
 	private String isbn; //Deve conter 13 dígitos.
 	
+	@NotNull(message="{validation.campo.obrigatorio}")
 	@Size(min=1,message="{validation.campo.obrigatorio}")
+	//private List<Autor> autores;
 	private String autor;
 	
 	@NotNull(message="{validation.campo.obrigatorio}")
@@ -49,6 +51,13 @@ public class Livro implements Serializable {
 		this.isbn = isbn;
 	}
 
+//	public List<Autor> getAutores() {
+//		return autores;
+//	}
+//
+//	public void setAutores(List<Autor> autores) {
+//		this.autores = autores;
+//	}
 	public String getAutor() {
 		return autor;
 	}
