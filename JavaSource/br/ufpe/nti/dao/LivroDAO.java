@@ -15,11 +15,12 @@ public class LivroDAO implements Serializable {
 	
 	public LivroDAO(){
 		EditoraDAO edtDAO = new EditoraDAO();
-		AutorDAO autorDAO = new AutorDAO();
+		//AutorDAO autorDAO = new AutorDAO();
 		this.livros = new ArrayList<Livro>();
 		
 		Livro l1 = new Livro();
 		Livro l2 = new Livro();
+		Livro l3 = new Livro();
 		
 		l1.setId(1);
 		l1.setIsbn("978-0071625098");
@@ -37,7 +38,7 @@ public class LivroDAO implements Serializable {
 		l2.setId(2);
 		l2.setIsbn("978-0137012893");
 		l2.setTitulo("Core JavaServer Faces (3rd Edition)");
-		l1.setAutor("Ed Burns e  Chris Schalk");
+		l2.setAutor("David Geary e Cay Horstmann");
 //		List<Autor> autores2 = new ArrayList<Autor>();
 //		autores2.add(autorDAO.consultarPorId(3));
 //		autores2.add(autorDAO.consultarPorId(4));
@@ -46,6 +47,19 @@ public class LivroDAO implements Serializable {
 		l2.setPreco(36.91f);
 		l2.setDataPublicacao(FormatDate.getDate("27/05/2010"));
 		this.livros.add(l2);
+
+		l3.setId(3);
+		l3.setIsbn("978-1-933988-54-2");
+		l3.setTitulo("Open Source SOA");
+		l3.setAutor("Jeff Davis");
+//		List<Autor> autores2 = new ArrayList<Autor>();
+//		autores2.add(autorDAO.consultarPorId(3));
+//		autores2.add(autorDAO.consultarPorId(4));
+//		l3.setAutores(autores2);
+		l3.setEditora(edtDAO.consultarPorId(4));
+		l3.setPreco(49.99f);
+		l3.setDataPublicacao(FormatDate.getDate("01/05/2009"));
+		this.livros.add(l3);
 	}
 	
 	/**

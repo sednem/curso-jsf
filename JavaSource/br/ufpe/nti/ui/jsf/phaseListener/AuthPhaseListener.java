@@ -27,6 +27,9 @@ public class AuthPhaseListener implements PhaseListener{
 
 		//Verifica se a página requisitada é login.jsf
 		boolean isLoginPage = (currentPage.lastIndexOf("login.xhtml") > -1);
+		
+		//Verifica se é uma página pública
+		boolean isPublicPage = currentPage.contains("/pages/public");
 
 		//Recupera o usuario da sessão
 		HttpSession session = (HttpSession) 
@@ -36,7 +39,7 @@ public class AuthPhaseListener implements PhaseListener{
 		
 
 		//Se não for tel delogin e não tiver usuário na sessão
-		if (!isLoginPage && currentUser == null) {
+		if ((!isLoginPage && currentUser == null) && !isPublicPage) {
 			NavigationHandler nh = 
 					facesContext.getApplication().getNavigationHandler();
 			nh.handleNavigation(facesContext, null, "loginPage"); //retorna para a página de login

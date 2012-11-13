@@ -18,6 +18,7 @@ public class EditoraDAO implements Serializable {
 		Editora e1 = new Editora();
 		Editora e2 = new Editora();
 		Editora e3 = new Editora();
+		Editora e4 = new Editora();
 		
 		e1.setId(1);
 		e1.setNome("McGraw-Hill Osborne Media");
@@ -30,6 +31,10 @@ public class EditoraDAO implements Serializable {
 		e3.setId(3);
 		e3.setNome("Novatec Editora");
 		this.editoras.add(e3);
+
+		e4.setId(4);
+		e4.setNome("Manning");
+		this.editoras.add(e4);
 	}
 	
 	/**

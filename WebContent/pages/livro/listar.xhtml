@@ -1,12 +1,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"> 
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
 <h:head>
+	<h:outputScript library="javax.faces" name="jsf.js" />
 </h:head> 
 <h:body>
 	<h:form prependId="false">
 		<h:button value="#{msg['cadastrar.livro']}" outcome="cadastrar" />
+		
+		
+		
+		<ui:repeat var="#{livroBean.livros}" value="l2">
+			<h:outputText value="->>#{l2.titulo}" />
+		</ui:repeat>
+		
 		<h:dataTable value="#{livroBean.livros}" var="l" border="1">
 			<f:facet name="header">
 				#{msg['livros.cadastrados']}
@@ -51,6 +60,8 @@
 				</h:outputText>
 			</h:column>
 		</h:dataTable>
+		
 	</h:form>
+	<ui:debug hotkey="k"></ui:debug>
 </h:body>
 </html>

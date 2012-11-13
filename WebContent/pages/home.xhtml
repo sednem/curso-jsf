@@ -1,19 +1,27 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"> 
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
 
-<h:head></h:head> 
+<h:head>
+	<ui:insert name="head"></ui:insert>
+</h:head> 
 <body> 
-	<h:form id="form">
 		<h:outputText id="msgUsuario" value="#{msg.bemVindo}, #{loginBean.usuario.nome}" />
 		<br />
 		<br />
-		<h:link id="cadUsuario" value="#{msg['cadastrar.usuario']}" outcome="/pages/usuario/cadastrar"/>
-		|
-		<h:link id="cadLivro" value="#{msg['cadastrar.livro']}" outcome="/pages/livro/listar"/>
-		<br />
-		<h:commandLink id="btnSair" value="#{msg.logout}" action="#{loginBean.sair}" immediate="true"/>		
-	</h:form>
+		<ui:insert name="menu">
+			<h:form id="formMenu">
+				<h:link id="cadUsuario" value="#{msg['cadastrar.usuario']}" outcome="/pages/usuario/cadastrar"/>
+				|
+				<h:link id="cadLivro" value="#{msg['cadastrar.livro']}" outcome="/pages/livro/listar"/>
+				|
+				<h:commandLink id="btnSair" value="#{msg.logout}" action="#{loginBean.sair}" immediate="true"/>			
+			</h:form>
+			<br />
+		</ui:insert>
+		<ui:insert name="conteudo">
+		</ui:insert>
 </body> 
 </html>

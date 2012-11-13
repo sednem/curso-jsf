@@ -1,14 +1,35 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"> 
-<h:head>
-</h:head> 
-<h:body>
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+
+<ui:decorate template="../home.xhtml">
+	<ui:define name="head">
+		<script>
+			function onStatusChange(data) {
+				var status = data.status;
+				if (status === "begin") { // turn on busy indicator
+					alert('Iniciando...');
+				} else if (status === "complete") { 
+					alert('Processando...');
+				} else if (status === "success") {
+					alert('Completo!');
+				}
+			}
+		</script>
+		
+		<title><ui:insert name="title">Cadastro de Livro</ui:insert></title>
+		<h:outputStylesheet library="default" name="css/bootstrap.css" />
+	</ui:define>
+	<ui:define name="conteudo">
+		
 	<h:form prependId="false">
 		<h:panelGrid columns="3">
 			<h:outputLabel for="isbn" value="#{msg['livro.isbn']}:" />
-			<h:inputText id="isbn" value="#{livroBean.livro.isbn}" />
+			<input type="text" jsfc="h:inputText" id="isbn" value="#{livroBean.livro.isbn}"/>
 			<h:message for="isbn" />
 
 			<h:outputLabel for="titulo" value="#{msg.titulo}:" />
@@ -40,12 +61,12 @@
 			<h:message for="preco"/>
 
 			<h:commandButton action="#{livroBean.cadastrar}" value="#{msg['cadastrar']}">
-				<f:ajax execute="@form" render="@all" />
+				<f:ajax execute="@form" render="@all" onevent="onStatusChange"/>
 			</h:commandButton>
 			<h:commandButton value="#{msg.cancelar}" action="listar" immediate="true"/>
 		</h:panelGrid>
-		
 		<h:messages id="msgs"/>
 	</h:form>
-</h:body>
+	</ui:define>
+</ui:decorate>
 </html>
