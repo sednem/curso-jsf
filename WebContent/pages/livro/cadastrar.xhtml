@@ -22,11 +22,12 @@
 		</script>
 		
 		<title><ui:insert name="title">Cadastro de Livro</ui:insert></title>
-		<h:outputStylesheet library="default" name="css/bootstrap.css" />
+		<h:outputStylesheet library="#{livroBean.theme}" name="css/bootstrap.css" />
 	</ui:define>
 	<ui:define name="conteudo">
 		
 	<h:form prependId="false">
+		<h:commandButton action="#{livroBean.switchTheme}" value="Alterar Tema" immediate="true"/>
 		<h:panelGrid columns="3">
 			<h:outputLabel for="isbn" value="#{msg['livro.isbn']}:" />
 			<input type="text" jsfc="h:inputText" id="isbn" value="#{livroBean.livro.isbn}"/>

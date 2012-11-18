@@ -5,15 +5,24 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
+	<h:outputStylesheet library="#{publicBean.theme}" name="css/bootstrap.css" />
 	<ui:insert name="head"></ui:insert>
 </h:head>
 <h:body>
+	<h:form id="frmTheme" style="float: right; margin-top: 3px; margin-right: 3px;">
+		<h:selectOneMenu value="#{publicBean.theme}" onchange="submit();">
+			<f:selectItems value="#{publicBean.themes}" var="theme"
+				itemLabel="#{theme}" itemValue="#{theme}" />
+		</h:selectOneMenu>
+	</h:form>
 	<ui:insert name="menu">
 		<h:form id="formMenu">
 			<center>
-			<h:commandLink id="lnkInfo" value="#{msg['menu.categoria.informatica']}" />
-			|
-			<h:commandLink id="lnkMat" value="#{msg['menu.categoria.matematica']}" />
+				<h:commandLink id="lnkInfo"
+					value="#{msg['menu.categoria.informatica']}" />
+				|
+				<h:commandLink id="lnkMat"
+					value="#{msg['menu.categoria.matematica']}" />
 			</center>
 		</h:form>
 		<br />
@@ -21,9 +30,8 @@
 	<ui:insert name="conteudo">
 	</ui:insert>
 	<ui:insert name="footer">
-		<center>
-		©2012 - SIG@Books - Núcleo de Tecnologia da Informação - UFPE
-		</center>
+		<center>©2012 - SIG@Books - Núcleo de Tecnologia da
+			Informação - UFPE</center>
 	</ui:insert>
 </h:body>
 </html>

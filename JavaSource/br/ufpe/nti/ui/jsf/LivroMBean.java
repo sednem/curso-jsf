@@ -19,6 +19,7 @@ public class LivroMBean implements Serializable {
 	private Livro livro;
 	private List<Livro> livros;
 	private List<Editora> editoras;
+	private String theme = "bootstrap";
 	
 	Fachada f = Fachada.getInstance();
 	
@@ -26,6 +27,16 @@ public class LivroMBean implements Serializable {
 		this.livro = new Livro();
 		this.livros = f.getLivroBC().listar();
 		this.editoras = f.getEditoraBC().listar();
+	}
+	
+	public void switchTheme(){
+		if(this.theme.equals("bootstrap")){
+			this.theme = "bootstrap-red";
+		}else if(this.theme.equals("bootstrap-red")){
+			this.theme = "default";
+		}else{
+			this.theme = "bootstrap";
+		}
 	}
 	
 	public String cadastrar(){
@@ -51,5 +62,13 @@ public class LivroMBean implements Serializable {
 	}
 	public void setEditoras(List<Editora> editoras) {
 		this.editoras = editoras;
+	}
+
+	public String getTheme() {
+		return theme;
+	}
+
+	public void setTheme(String theme) {
+		this.theme = theme;
 	}
 }
