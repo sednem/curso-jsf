@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/templates/public-prime.xhtml">
+	<ui:define name="conteudo">
+		<h:form id="publicLivros">
+			<center>
+				<p:selectOneRadio value="#{livrosBean.tipoVisualizacao}">
+					<f:selectItem itemLabel="Lista" itemValue="1" />
+					<f:selectItem itemLabel="Grade" itemValue="2" />
+					<f:selectItem itemLabel="Carousel" itemValue="3" />
+					<f:ajax execute="@this" render="@form" />
+				</p:selectOneRadio>				
+			<br />
+			<p:dataGrid var="l" value="#{livrosBean.livros}" columns="1"
+				rendered="#{livrosBean.tipoVisualizacao == 1}"
+		        rows="2" paginator="true"  
+		        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+		        rowsPerPageTemplate="2, 5, 10"> 
+				<p:panel>
+	            <h:panelGrid columns="2">	            	
+					<h:commandLink action="#{livrosBean.selecionarLivro(l)}">
+						<h:graphicImage id="img" value="/resources/img/livro.png" />
+					</h:commandLink>
+					<h:commandLink action="#{livrosBean.selecionarLivro(l)}">
+						<h:outputText value="#{l.titulo}" />
+						<br />
+						<h:outputText value="#{l.autor}" />
+						<br />
+						<h:outputText value="#{l.editora.nome}" />
+						<br />
+						<h:outputText value="#{l.preco}">
+							<f:convertNumber locale="pt_BR" type="currency" />
+						</h:outputText>
+					</h:commandLink>
+	            </h:panelGrid>
+	            </p:panel>
+            </p:dataGrid>
+
+			<p:dataGrid var="livro" value="#{livrosBean.livros}" columns="2"
+				rendered="#{livrosBean.tipoVisualizacao == 2}"
+		        rows="2" paginator="true"
+		        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+		        rowsPerPageTemplate="2, 5, 10">
+				<p:panel style="text-align: center;">
+					<h:commandLink action="#{livrosBean.selecionarLivro(livro)}">
+						<f:param id="lvr" value="#{livro}"></f:param>
+						
+						<h:graphicImage id="img" value="/resources/img/livro.png" />
+						<h:panelGrid style="width: 100%; text-align: center;">
+							<h:outputText value="#{livro.titulo}" />
+							<h:outputText value="#{livro.autor}" />
+							<h:outputText value="#{livro.editora.nome}" />
+							<h:outputText value="#{livro.preco}" style="font-weight: bold">
+								<f:convertNumber locale="pt_BR" type="currency" />
+							</h:outputText>
+						</h:panelGrid>
+					</h:commandLink>
+				</p:panel>
+			</p:dataGrid>
+			
+			<p:carousel id="basicCarousel" var="livro" value="#{livrosBean.livros}" 
+				rendered="#{livrosBean.tipoVisualizacao == 3}">  
+			    <f:facet name="header">  
+			            Livros  
+			    </f:facet>  
+			    <h:panelGrid columns="1" style="width:100%" cellpadding="5">  
+			        <h:commandLink action="#{livrosBean.selecionarLivro(livro)}">
+						<f:param id="lvr" value="#{livro}"></f:param>
+						
+						<h:graphicImage id="img" value="/resources/img/livro.png" />
+						<h:panelGrid style="width: 100%; text-align: center;">
+							<h:outputText value="#{livro.titulo}" />
+							<h:outputText value="#{livro.autor}" />
+							<h:outputText value="#{livro.editora.nome}" />
+							<h:outputText value="#{livro.preco}" style="font-weight: bold">
+								<f:convertNumber locale="pt_BR" type="currency" />
+							</h:outputText>
+						</h:panelGrid>
+					</h:commandLink> 
+			    </h:panelGrid>  
+			</p:carousel>  
+			
+			</center>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+<ui:composition template="/pages/primefaces/home.xhtml">
+	<ui:define name="conteudo">
+		<f:facet name="header">#{msg['cadastrar.livro']}</f:facet>			
+		<h:form prependId="false">
+			<h:panelGrid columns="3">
+				<h:outputLabel for="isbn" value="#{msg['livro.isbn']}:" />
+				<p:inputText id="isbn" value="#{livroBean.livro.isbn}"/>
+				<p:message ajaxRendered="true" for="isbn" />
+	
+				<h:outputLabel for="titulo" value="#{msg.titulo}:" />
+				<p:inputText id="titulo" value="#{livroBean.livro.titulo}"/>
+				<p:message ajaxRendered="true" for="titulo" />
+	
+				<h:outputLabel for="autor" value="#{msg.autor}:" />
+				<p:inputText id="autor" value="#{livroBean.livro.autor}"/>
+				<p:message ajaxRendered="true" for="autor" />
+	
+				<h:outputLabel for="editora" value="#{msg.editora}:" />
+				<p:selectOneMenu id="editora" value="#{livroBean.livro.editora}">
+					<f:selectItems value="#{livroBean.editoras}"
+						var="ed" itemLabel="#{ed.nome}" itemValue="#{ed}"/>
+				</p:selectOneMenu>
+				<p:message ajaxRendered="true" for="editora" errorStyle="color: red;"/>
+	
+				<h:outputLabel for="dataPub" value="#{msg['data.publicacao']}:" />
+				<p:calendar id="dataPub" locale="#{msg['locale.default']}" pattern="#{msg['data.pattern']}"
+					value="#{livroBean.livro.dataPublicacao}"  navigator="true"
+					yearRange="c-100:c+10"/>
+				<p:message ajaxRendered="true" for="dataPub"/>
+	
+				<h:outputLabel for="preco" value="#{msg.preco}:" />
+				<p:inputText id="preco" value="#{livroBean.livro.preco}" >
+					<f:convertNumber locale="#{msg['locale.default']}"/>
+				</p:inputText>
+				<p:message	 ajaxRendered="true" for="preco"/>
+	
+				<h:commandButton action="#{livroBean.cadastrar}" value="#{msg['cadastrar']}" rendered="#{livroBean.acaoCadastrar}">
+					<f:ajax execute="@form" render="@form"/>
+				</h:commandButton>
+	
+				<h:commandButton action="#{livroBean.editar}" value="Editar" rendered="#{livroBean.acaoEditar}">
+					<f:ajax execute="@form" render="@form msgs"/>
+				</h:commandButton>
+				
+				<h:commandButton value="#{msg.cancelar}" action="listar" immediate="true"/>
+			</h:panelGrid>
+			
+			<p:growl id="msgs"/>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

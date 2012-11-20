@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"> 
+<ui:composition template="/pages/primefaces/home.xhtml">
+	<ui:define name="conteudo">
+		<f:facet name="header">#{msg['cadastrar.livro']}</f:facet>	
+		<h:form prependId="false">
+		
+			<p:commandButton value="#{msg['cadastrar.livro']}"
+				action="#{livroBean.telaCadastrar}" icon="ui-icon ui-icon-circle-plus"/>
+				
+			<p:contextMenu for="tbLivros">  
+		        <p:menuitem value="Editar" action="#{livroBean.telaEditar}" icon="ui-icon-pencil" />  
+		        <p:menuitem value="Delete" icon="ui-icon-close" onclick="alert('Não implementado');"/>  
+		    </p:contextMenu>
+			
+            <p:dataTable id="tbLivros" rows="2" value="#{livroBean.livros}" var="l"
+            	paginator="true" rowsPerPageTemplate="2, 4, 8"
+            	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+            	rowKey="#{l.id}" selection="#{livroBean.livro}" selectionMode="single">
+				<f:facet name="header">
+					#{msg['livros.cadastrados']} 
+				</f:facet>
+				<f:facet name="footer">
+					#{msg['livros.cadastrados']}
+				</f:facet>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.titulo}" />
+					</f:facet>
+					<h:outputText value="#{l.titulo}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.editora}" />
+					</f:facet>
+					<h:outputText value="#{l.editora.nome}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.autor}" />
+					</f:facet>
+					<h:outputText value="#{l.autor}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg['data.publicacao']}" />
+					</f:facet>
+					<h:outputText value="#{l.dataPublicacao}">
+						<f:convertDateTime 
+						type="date" locale="#{msg['locale.default']}"/>
+					</h:outputText>
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.preco}" />
+					</f:facet>
+					<h:outputText value="#{l.preco}">
+						<f:convertNumber locale="#{msg['locale.default']}"
+							type="currency" minFractionDigits="2" maxFractionDigits="2"/>
+					</h:outputText>
+				</p:column>
+            </p:dataTable>
+
+			
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

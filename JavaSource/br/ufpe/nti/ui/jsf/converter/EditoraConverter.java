@@ -11,8 +11,6 @@ import br.ufpe.nti.business.EditoraBC;
 import br.ufpe.nti.business.Fachada;
 import br.ufpe.nti.entity.Editora;
 
-//converter-for-class - br.ufpe.nti.entity.Editora
-//converter-id - editoraConverter
 @FacesConverter(forClass=Editora.class)
 public class EditoraConverter implements Converter {
 

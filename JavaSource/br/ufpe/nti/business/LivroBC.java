@@ -31,4 +31,13 @@ public class LivroBC implements Serializable {
 	public List<Livro> listar(){
 		return this.lDAO.listar();
 	}
+
+	public void editar(Livro livro) throws Exception {
+		Livro livroCadastrado = this.lDAO.consultarPorId(livro.getId());
+		if(livroCadastrado != null){
+			this.lDAO.editar(livro);
+		}else{
+			throw new Exception("Livro a ser editado não foi encontrado");
+		}
+	}
 }

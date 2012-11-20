@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich">
+<ui:composition template="/templates/public.xhtml">
+	<ui:define name="conteudo">
+		<h:form id="publicLivros">
+			<center>
+				<h:selectOneRadio value="#{livrosBean.tipoVisualizacao}">
+					<f:selectItem itemLabel="Lista" itemValue="1" />
+					<f:selectItem itemLabel="Grade" itemValue="2" />
+					<f:ajax execute="@this" render="@form" />
+				</h:selectOneRadio>				
+			<br />
+			<rich:dataGrid value="#{livrosBean.livros}" title="Livros"
+				rendered="#{livrosBean.tipoVisualizacao == 1}" var="l"
+				columns="1" width="600px" border="0">
+				<rich:panel bodyClass="pbody" style="width: 600px; text-align: left;">
+	            <h:panelGrid columns="2">	            	
+					<h:commandLink action="#{livrosBean.selecionarLivro(l)}">
+						<h:graphicImage id="img" value="/resources/img/livro.png" />
+					</h:commandLink>
+					<h:commandLink action="#{livrosBean.selecionarLivro(l)}">
+						<h:outputText value="#{l.titulo}" />
+						<br />
+						<h:outputText value="#{l.autor}" />
+						<br />
+						<h:outputText value="#{l.editora.nome}" />
+						<br />
+						<h:outputText value="#{l.preco}">
+							<f:convertNumber locale="pt_BR" type="currency" />
+						</h:outputText>
+					</h:commandLink>
+	            </h:panelGrid>
+	            </rich:panel>
+            </rich:dataGrid>
+
+			<rich:dataGrid value="#{livrosBean.livros}" title="Livros"
+				rendered="#{livrosBean.tipoVisualizacao == 2}" var="livro"
+				columns="2" width="600px" border="0">
+				<rich:panel bodyClass="pbody" style="width: 300px; text-align: center;">
+					<h:commandLink action="#{livrosBean.selecionarLivro(livro)}">
+						<f:param id="lvr" value="#{livro}"></f:param>
+						
+						<h:graphicImage id="img" value="/resources/img/livro.png" />
+						<h:panelGrid style="width: 300px; text-align: left;">
+							<h:outputText value="#{livro.titulo}" />
+							<h:outputText value="#{livro.autor}" />
+							<h:outputText value="#{livro.editora.nome}" />
+							<h:outputText value="#{livro.preco}" style="font-weight: bold">
+								<f:convertNumber locale="pt_BR" type="currency" />
+							</h:outputText>
+						</h:panelGrid>
+					</h:commandLink>
+				</rich:panel>
+			</rich:dataGrid>
+			
+			</center>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

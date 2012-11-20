@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:a4j="http://richfaces.org/a4j"> 
+<ui:composition template="/pages/richfaces/home.xhtml">
+	<ui:define name="conteudo">
+		<f:facet name="header">#{msg['cadastrar.livro']}</f:facet>	
+		<h:form prependId="false">
+			
+			<rich:contextMenu target="tbLivros" mode="ajax" >
+                <rich:menuItem label="Editar" 
+                	action="#{livroBean.telaEditar(l)}"
+                               mode="server" icon="/resources/img/edit.png"/>
+            </rich:contextMenu>
+			<rich:dataScroller for="tbLivros" maxPages="5" />
+            <rich:extendedDataTable id="tbLivros" rows="2" value="#{livroBean.livros}" var="l"
+            	style="width:505px;" >	
+            	<a4j:ajax execute="tbLivros" event="selectionchange"
+            		listener="#{livroBean.selectionListener}"/>
+				<f:facet name="header">
+					#{msg['livros.cadastrados']} 
+					<a4j:commandButton value="#{msg['cadastrar.livro']}"
+						action="#{livroBean.telaCadastrar}" image="/resources/img/add.png"/>
+				</f:facet>
+				<f:facet name="footer">
+					#{msg['livros.cadastrados']}
+				</f:facet>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.titulo}" />
+					</f:facet>
+					<h:outputText value="#{l.titulo}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.editora}" />
+					</f:facet>
+					<h:outputText value="#{l.editora.nome}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.autor}" />
+					</f:facet>
+					<h:outputText value="#{l.autor}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg['data.publicacao']}" />
+					</f:facet>
+					<h:outputText value="#{l.dataPublicacao}">
+						<f:convertDateTime 
+						type="date" locale="#{msg['locale.default']}"/>
+					</h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.preco}" />
+					</f:facet>
+					<h:outputText value="#{l.preco}">
+						<f:convertNumber locale="#{msg['locale.default']}"
+							type="currency" minFractionDigits="2" maxFractionDigits="2"/>
+					</h:outputText>
+				</h:column>
+            </rich:extendedDataTable>
+
+			
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

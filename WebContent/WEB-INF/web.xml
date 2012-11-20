@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 	<display-name>JSF</display-name>
 	<welcome-file-list>
-		<welcome-file>pages/home.jsf</welcome-file>
+		<welcome-file>pages/select.jsf</welcome-file>
 	</welcome-file-list>
 	
 	<!-- :: JSF :: -->
@@ -33,13 +33,19 @@
 	<!-- :: Fim: JSF :: -->
 	
 	<!-- :: RichFaces :: -->
-	<context-param>
+	<!-- <context-param>
         <param-name>org.richfaces.skin</param-name>
         <param-value>plain</param-value>
     </context-param>
     <context-param>
         <param-name>org.richfaces.enableControlSkinning</param-name>
         <param-value>false</param-value>
-    </context-param>
-    <!-- :: RichFaces :: -->
+    </context-param> -->
+    <!-- :: Fim: RichFaces :: -->
+	<!-- :: PrimeFaces :: -->
+	<context-param>
+		<param-name>primefaces.skin</param-name>
+		<param-value>none</param-value>
+	</context-param>
+	<!-- :: Fim: PrimeFaces :: -->
 </web-app>

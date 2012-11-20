@@ -77,4 +77,26 @@ public class LivroDAO implements Serializable {
 	public List<Livro> listar(){
 		return this.livros;
 	}
+	
+	/**
+	 * Consulta um livro pelo ID
+	 * @param id do livro desejado
+	 * @return Livro que possui o id informado.
+	 */
+	public Livro consultarPorId(long id){
+		Livro livro = null;
+		for (Livro l : this.livros) {
+			if(l.getId() == id){
+				livro = l;
+				break;
+			}
+		}
+		return livro;
+	}
+
+	public void editar(Livro livro) {
+		this.livros.remove(this.consultarPorId(livro.getId()));
+		
+		this.livros.add(livro);
+	}
 }

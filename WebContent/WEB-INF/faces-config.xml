@@ -41,23 +41,69 @@
 			<to-view-id>/pages/tela-erro.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<!-- Tela de cadastro de usuário RichFaces-->
+	<navigation-rule>
+		<from-view-id>/pages/richfaces/usuario/cadastrar.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{usuarioBean.cadastrar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/pages/richfaces/tela-sucesso.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>erro</from-outcome>
+			<to-view-id>/pages/richfaces/tela-erro.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- Tela de cadastro de usuário-->
+	<navigation-rule>
+		<from-view-id>/pages/primefaces/usuario/cadastrar.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{usuarioBean.cadastrar}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/pages/primefaces/tela-sucesso.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>erro</from-outcome>
+			<to-view-id>/pages/primefaces/tela-erro.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	
 	<!-- Tela de login -->
 	<navigation-rule>
 		<from-view-id>/*</from-view-id>
 		<navigation-case>
 			<from-outcome>loginPage</from-outcome>
-			<to-view-id>/pages/login.xhtml</to-view-id>
+			<to-view-id>/pages/select.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
 	
 	<!-- Tela principal -->
 	<navigation-rule>
-		<from-view-id>/*</from-view-id>
+		<from-view-id>/pages/login.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>index</from-outcome>
 			<to-view-id>/pages/home.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- Tela principal RichFaces-->
+	<navigation-rule>
+		<from-view-id>/pages/richfaces/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>index</from-outcome>
+			<to-view-id>/pages/richfaces/home.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- Tela principal PrimeFaces-->
+	<navigation-rule>
+		<from-view-id>/pages/primefaces/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>index</from-outcome>
+			<to-view-id>/pages/primefaces/home.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>

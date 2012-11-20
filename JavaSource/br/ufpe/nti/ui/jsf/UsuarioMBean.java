@@ -48,9 +48,6 @@ public class UsuarioMBean implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
 
 			this.usuario = new Usuario();
-			outcome = "sucesso";
-		}else {
-			outcome = "erro";
 		}
 		return outcome;
 	}
@@ -61,10 +58,10 @@ public class UsuarioMBean implements Serializable {
 	 * @param e ActionEvent
 	 */
 	public void verificarDisponibilidadeLogin(ActionEvent e){
-		
 		if(existeNomeUsuario(this.getUsuario().getLogin())){
 			
-			FacesMessage msg = new FacesMessage(
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					this.getValue("cadastrar.usuario.username.indisponivel"), 
 					this.getValue("cadastrar.usuario.username.indisponivel"));
 			FacesContext.getCurrentInstance().addMessage("usuario", msg);
 			
@@ -102,7 +99,10 @@ public class UsuarioMBean implements Serializable {
 		if (!u.getSenha().equals(confSenha)) {
 			valido = false;
 			
-			FacesMessage msg = new FacesMessage(this.getValue("cadastrar.usuario.erro.confirmacao.senha"));
+			FacesMessage msg = new FacesMessage(
+					FacesMessage.SEVERITY_ERROR,
+					this.getValue("cadastrar.usuario.erro.confirmacao.senha"),
+					this.getValue("cadastrar.usuario.erro.confirmacao.senha"));
 			FacesContext.getCurrentInstance().addMessage("senha", msg);
 		}
 		
@@ -113,7 +113,9 @@ public class UsuarioMBean implements Serializable {
 			String msg = this.getValue("cadastrar.usuario.erro.username");
 			msg = MessageFormat.format(msg, u.getLogin());
 			
-			FacesMessage facesMsg = new FacesMessage(msg);
+			FacesMessage facesMsg = new FacesMessage(
+					FacesMessage.SEVERITY_ERROR,
+					msg, msg);
 			FacesContext.getCurrentInstance().addMessage(null, facesMsg);			
 		}
 		
@@ -162,6 +164,13 @@ public class UsuarioMBean implements Serializable {
 			result = "???" + key + "??? not found";
 		}
 		return result;
+	}
+	
+	public String testarMensagem(){
+		FacesMessage facesMsg = new FacesMessage("Tete Notify");
+		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+		
+		return "";
 	}
 
 	//Getters and Setters

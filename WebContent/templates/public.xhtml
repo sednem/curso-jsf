@@ -2,36 +2,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:rich="http://richfaces.org/rich">
 
 <h:head>
-	<h:outputStylesheet library="#{publicBean.theme}" name="css/bootstrap.css" />
 	<ui:insert name="head"></ui:insert>
 </h:head>
 <h:body>
-	<h:form id="frmTheme" style="float: right; margin-top: 3px; margin-right: 3px;">
-		<h:selectOneMenu value="#{publicBean.theme}" onchange="submit();">
-			<f:selectItems value="#{publicBean.themes}" var="theme"
-				itemLabel="#{theme}" itemValue="#{theme}" />
-		</h:selectOneMenu>
-	</h:form>
 	<ui:insert name="menu">
 		<h:form id="formMenu">
-			<center>
+			<rich:toolbar height="26" itemSeparator="line" style="text-align:center;">			
+				<center>
 				<h:commandLink id="lnkInfo"
 					value="#{msg['menu.categoria.informatica']}" />
-				|
 				<h:commandLink id="lnkMat"
 					value="#{msg['menu.categoria.matematica']}" />
-			</center>
+				</center>
+			</rich:toolbar>
 		</h:form>
 		<br />
 	</ui:insert>
 	<ui:insert name="conteudo">
 	</ui:insert>
-	<ui:insert name="footer">
-		<center>©2012 - SIG@Books - Núcleo de Tecnologia da
-			Informação - UFPE</center>
+	<ui:insert name="footer">		
+		<rich:toolbar height="26" itemSeparator="line" >
+			©2012 - SIG@Books - Núcleo de Tecnologia da Informação - UFPE 
+			(<a href="http://www.jboss.org/richfaces/"><i>RichFaces 4.2.3</i></a>)
+		</rich:toolbar>
 	</ui:insert>
 </h:body>
 </html>

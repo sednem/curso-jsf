@@ -26,10 +26,13 @@ public class AuthPhaseListener implements PhaseListener{
 		String currentPage = facesContext.getViewRoot().getViewId();
 
 		//Verifica se a página requisitada é login.jsf
-		boolean isLoginPage = (currentPage.lastIndexOf("login.xhtml") > -1);
+		boolean isLoginPage = (currentPage.lastIndexOf("login.xhtml") > -1)
+				|| (currentPage.lastIndexOf("select.xhtml") > -1);
 		
 		//Verifica se é uma página pública
-		boolean isPublicPage = currentPage.contains("/pages/public");
+		boolean isPublicPage = currentPage.contains("/pages/public")
+				|| currentPage.contains("/pages/richfaces/public")
+				|| currentPage.contains("/pages/primefaces/public");
 
 		//Recupera o usuario da sessão
 		HttpSession session = (HttpSession) 

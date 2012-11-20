@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:rich="http://richfaces.org/rich"> 
+
+<h:head>
+	<ui:insert name="head"></ui:insert>
+</h:head> 
+<h:body> 
+	<ui:insert name="menu">
+		<h:form id="formMenu">
+			<rich:toolbar height="26" itemSeparator="none">
+	            <rich:toolbarGroup location="left">
+		            <rich:menuItem id="btnHome" label="Home" action="/pages/richfaces/home" icon="/resources/img/home.png"/>
+		        </rich:toolbarGroup>
+				<rich:dropDownMenu mode="ajax">
+	                <f:facet name="label">
+	                    <h:panelGrid cellpadding="0" cellspacing="0" columns="2" style="vertical-align:middle">
+	                        <h:outputText value="CRUD" />
+	                    </h:panelGrid>
+	                </f:facet>
+					<rich:menuItem id="cadUsuario" label="#{msg['cadastrar.usuario']}" action="/pages/richfaces/usuario/cadastrar"
+						mode="server"/>		                
+					<rich:menuItem id="cadLivro" label="#{msg['cadastrar.livro']}" action="/pages/richfaces/livro/listar" 
+						mode="server"/>
+	            </rich:dropDownMenu>
+	            
+	            <rich:toolbarGroup location="right">
+		            <h:outputText id="msgUsuario" value="#{msg.bemVindo}, #{loginBean.usuario.nome}" />
+		        </rich:toolbarGroup>	
+	            
+	            <rich:toolbarGroup location="right">
+		            <rich:menuItem id="btnSair" label="#{msg.logout}" action="#{loginBean.sair}" immediate="true" icon="/resources/img/sair.png"/>
+		        </rich:toolbarGroup>		
+			</rich:toolbar>
+		</h:form>
+		<br />
+	</ui:insert>
+	
+	<rich:panel>
+		<ui:insert name="conteudo">
+			<f:facet name="header">Página Inicial</f:facet>	
+			<h1><b>SIG@Books utilizando RichFaces 4</b></h1>
+		</ui:insert>	
+	</rich:panel>
+	<br/>
+	<ui:insert name="rodape">
+		<rich:toolbar height="26" itemSeparator="line" >
+			©2012 - SIG@Books - Núcleo de Tecnologia da Informação - UFPE 
+			(<a href="http://www.jboss.org/richfaces/"><i>RichFaces 4.2.3</i></a>)
+		</rich:toolbar>
+	</ui:insert>
+</h:body> 
+</html>
