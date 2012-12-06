@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite">
+<cc:interface>
+	<cc:attribute name="login" required="true"
+		shortDescription="Atributo para armazenar o login do usuário"/>
+	<cc:attribute name="senha" required="true"
+		shortDescription="Atributo para armazenar a senha do usuário"/>
+	<cc:attribute name="action" targets="btnLogin"/>
+</cc:interface>
+<cc:implementation>
+	<center>
+		<h:graphicImage id="img" value="/resources/img/livro.png" />
+		<p:panel header="PrmeFaces Login - Customizado" style="width: 300px;">
+			<h:panelGrid columns="2">
+				<h:outputLabel for="usuario" value="#{msg.usuario}:" />
+				<h:inputText id="usuario" value="#{cc.attrs.login}" />
+
+				<h:outputLabel for="senha" value="#{msg.senha}:" />
+				<h:inputSecret id="senha" value="#{cc.attrs.senha}" />
+
+				<h:column />
+				<p:commandButton id="btnLogin" value="#{msg.login}"
+					ajax="true" process="@form" update="@form" />
+			</h:panelGrid>
+			
+			<f:facet name="footer">
+				<center>
+					©2012 - SIG@Books (<a href="www.primefaces.org"><i>Primefaces 3.4.1</i></a>)
+				</center>
+			</f:facet>
+		</p:panel>
+		<p:growl id="growl" showDetail="true" sticky="true"/>
+	</center>
+</cc:implementation>
+</html>

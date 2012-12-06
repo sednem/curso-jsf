@@ -3,32 +3,40 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:rich="http://richfaces.org/rich">
+	  xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+	<style type="text/css">
+		*{
+			font-family: Arial,Verdana,sans-serif;
+		    font-size: 11px;
+		}
+	</style>
 	<ui:insert name="head"></ui:insert>
 </h:head>
 <h:body>
 	<ui:insert name="menu">
 		<h:form id="formMenu">
-			<rich:toolbar height="26" itemSeparator="line" style="text-align:center;">			
-				<center>
-				<h:commandLink id="lnkInfo"
-					value="#{msg['menu.categoria.informatica']}" />
-				<h:commandLink id="lnkMat"
-					value="#{msg['menu.categoria.matematica']}" />
-				</center>
-			</rich:toolbar>
+			<p:menubar 	>
+				<p:menuitem id="itInfo" value="#{msg['menu.categoria.informatica']}" />
+				<p:menuitem id="itMat" value="#{msg['menu.categoria.matematica']}" />
+			</p:menubar>
 		</h:form>
 		<br />
 	</ui:insert>
 	<ui:insert name="conteudo">
 	</ui:insert>
 	<ui:insert name="footer">		
-		<rich:toolbar height="26" itemSeparator="line" >
-			©2012 - SIG@Books - Núcleo de Tecnologia da Informação - UFPE 
-			(<a href="http://www.jboss.org/richfaces/"><i>RichFaces 4.2.3</i></a>)
-		</rich:toolbar>
+		<h:form>
+			<p:menubar>
+				<p:menuitem id="itRodape">				
+					©2012 - SIG@Books - Núcleo de Tecnologia da Informação - UFPE 
+					(<a href="http://www.primefaces.org/"><i>PrimeFaces 3.4.1</i></a>)
+					- <h:link outcome="/pages/login.jsf" value="Área Administrativa"
+					style="foat: right;"/>
+				</p:menuitem>
+			</p:menubar>
+		</h:form>
 	</ui:insert>
 </h:body>
 </html>

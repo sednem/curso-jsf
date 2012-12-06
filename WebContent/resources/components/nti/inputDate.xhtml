@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite">
+<cc:interface>
+	<cc:attribute name="label" required="true" shortDescription="Label" />
+	<cc:attribute name="value" required="true" shortDescription="Valor do inputText" />
+	<cc:attribute name="locale" default="pt_BR"
+		shortDescription="Locale to be used for labels and conversion." />
+	<cc:attribute name="datePattern" default="dd/MM/yyyy"
+	shortDescription="DateFormat pattern for localization." />
+</cc:interface>
+<cc:implementation>
+	<h:outputLabel for="#{cc.clientId}:date" value="#{cc.attrs.label}:" />
+	<p:calendar id="#{cc.clientId}:date" locale="#{msg['locale.default']}"
+		pattern="#{msg['data.pattern']}" calue="#{cc.attrs.value}"
+		navigator="true" yearRange="c-100:c+10" />
+	<p:message ajaxRendered="true" for="#{cc.clientId}:date" />
+</cc:implementation>
+</html>

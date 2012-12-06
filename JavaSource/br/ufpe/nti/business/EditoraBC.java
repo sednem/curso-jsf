@@ -3,16 +3,20 @@ package br.ufpe.nti.business;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import br.ufpe.nti.dao.EditoraDAO;
 import br.ufpe.nti.entity.Editora;
 
+@Service("editoraBC")
 public class EditoraBC implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	@Autowired
 	private EditoraDAO eDAO;
 
 	public EditoraBC(){
-		this.eDAO = new EditoraDAO();		
 	}
 	
 	/**
@@ -20,7 +24,7 @@ public class EditoraBC implements Serializable {
 	 * @param u Editora a ser persistido
 	 */
 	public void inserir(Editora u){
-		this.eDAO.inserir(u);
+		this.eDAO.insert(u);
 	}
 	
 	/**
@@ -28,7 +32,7 @@ public class EditoraBC implements Serializable {
 	 * @return Lista de Editoras cadastradas
 	 */
 	public List<Editora> listar(){
-		return this.eDAO.listar();
+		return this.eDAO.findAll();
 	}
 	
 	/**
@@ -37,6 +41,14 @@ public class EditoraBC implements Serializable {
 	 * @return Editara que possui o id informado.
 	 */
 	public Editora consultarPorId(long id){
-		return this.eDAO.consultarPorId(id);
+		return this.eDAO.findByPK(id);
+	}
+
+	public void excluir(Editora editora) {
+		this.eDAO.delete(editora);
+	}
+
+	public void atualizar(Editora editora) {
+		this.eDAO.update(editora);
 	}
 }

@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/pages/home.xhtml">
+	<ui:define name="conteudo">
+		<f:facet name="header">Cadastro de Usuarios</f:facet>
+		<h:form>
+			<p:growl globalOnly="true" />
+			<h:panelGroup rendered="#{usuarioBean.listar}">
+				<p:commandButton value="Cadastrar Usuario"
+					actionListener="#{usuarioBean.telaCadastrar}"
+					icon="ui-icon ui-icon-circle-plus" update="@form" />
+
+				<p:contextMenu for="table">
+					<p:menuitem value="Editar" icon="ui-icon-pencil"
+						actionListener="#{usuarioBean.telaEditar}" update="@form" />
+					<p:menuitem value="Remover" icon="ui-icon-close" update="@form"
+						actionListener="#{usuarioBean.remover}" />
+				</p:contextMenu>
+
+				<p:dataTable id="table" rows="5" value="#{usuarioBean.usuarios}"
+					var="u" paginator="true" rowsPerPageTemplate="5,10,15"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowKey="#{u.login}" selection="#{usuarioBean.usuario}"
+					selectionMode="single">
+					<f:facet name="header">
+					Usuarios cadastrados
+				</f:facet>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="CPF" />
+						</f:facet>
+						<h:outputText value="#{u.cpf}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Login" />
+						</f:facet>
+						<h:outputText value="#{u.login}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Nome" />
+						</f:facet>
+						<h:outputText value="#{u.nome}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="E-mail" />
+						</f:facet>
+						<h:outputText value="#{u.email}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Endereço" />
+						</f:facet>
+						<h:outputText value="#{u.endereco.logradouro}" />
+					</p:column>
+				</p:dataTable>
+			</h:panelGroup>
+
+			<h:panelGrid columns="3"
+				rendered="#{usuarioBean.cadastrar || usuarioBean.editar}">
+				
+				<h:outputLabel for="cpf" value="CPF:" />
+				<p:inputText id="cpf" value="#{usuarioBean.usuario.cpf}"
+					readonly="#{usuarioBean.editar}"/>
+				<p:message id="msgCPF" for="cpf" />
+				
+				<h:outputLabel for="usuario" value="#{msg.usuario}:" />
+				<p:inputText id="usuario" value="#{usuarioBean.usuario.login}"/>
+				<p:message id="msgUsu" for="usuario" />
+
+				<h:outputLabel for="senha" value="#{msg.senha}:" />
+				<p:password id="senha" value="#{usuarioBean.usuario.senha}"
+					feedback="true" />
+				<p:message for="senha" />
+
+				<h:outputLabel for="nome" value="#{msg.nome}:" />
+				<p:inputText id="nome" value="#{usuarioBean.usuario.nome}" />
+				<p:message for="nome" />
+
+				<h:outputLabel for="email" value="#{msg.email}:" />
+				<p:inputText id="email" value="#{usuarioBean.usuario.email}"/>
+				<p:message for="email" />
+
+				<h:outputLabel for="sexo" value="#{msg.sexo}:" />
+				<p:selectOneRadio id="sexo" value="#{usuarioBean.usuario.sexo}">
+					<f:selectItem itemLabel="#{msg['sexo.masculino']}"
+						itemValue="#{msg['sexo.masculino']}" />
+					<f:selectItem itemLabel="#{msg['sexo.feminino']}"
+						itemValue="#{msg['sexo.feminino']}" />
+				</p:selectOneRadio>
+				<p:message for="sexo" />
+
+				<h:outputLabel for="dt_nasc" value="#{msg['data.nascimento']}:" />
+				<p:calendar id="dt_nasc" locale="#{msg['locale.default']}"
+					pattern="#{msg['data.pattern']}"
+					value="#{usuarioBean.usuario.dataNascimento}" 
+					navigator="true" yearRange="c-100:c+10" />
+				<p:message for="dt_nasc" showSummary="true" showDetail="false" />
+
+				<h:outputLabel for="end" value="Endereço:" />
+				<p:inputText id="end"
+					value="#{usuarioBean.usuario.endereco.logradouro}" />
+				<p:message for="end" />
+
+				<p:commandButton value="Cadastrar"
+					actionListener="#{usuarioBean.cadastrar}" update="@form"
+					rendered="#{usuarioBean.cadastrar}" />
+				<p:commandButton value="Atualizar"
+					actionListener="#{usuarioBean.atualizar}" update="@form"
+					rendered="#{usuarioBean.editar}" />
+				<p:commandButton value="Cancelar"
+					actionListener="#{usuarioBean.telaListar}" update="@form"
+					immediate="true" />
+			</h:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

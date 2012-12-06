@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/pages/home.xhtml">
+	<ui:define name="conteudo">
+		<f:facet name="header">Cadastro de Livros</f:facet>
+		<h:form>
+			<p:growl globalOnly="true" />
+			<h:panelGroup rendered="#{livroBean.listar}">
+				<p:commandButton value="Cadastrar Livro"
+					actionListener="#{livroBean.telaCadastrar}"
+					icon="ui-icon ui-icon-circle-plus" update="@form" />
+
+				<p:contextMenu for="table">
+					<p:menuitem value="Editar" icon="ui-icon-pencil"
+						actionListener="#{livroBean.telaEditar}" update="@form" />
+					<p:menuitem value="Remover" icon="ui-icon-close" update="@form"
+						actionListener="#{livroBean.remover}" />
+				</p:contextMenu>
+
+				<p:dataTable id="table" rows="5" value="#{livroBean.livros}" var="l"
+					paginator="true" rowsPerPageTemplate="5,10,15"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowKey="#{l.id}" selection="#{livroBean.livro}"
+					selectionMode="single">
+					<f:facet name="header">
+						#{msg['livros.cadastrados']} 
+					</f:facet>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.titulo}" />
+						</f:facet>
+						<h:outputText value="#{l.titulo}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.editora}" />
+						</f:facet>
+						<h:outputText value="#{l.editora.nome}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.autor}" />
+						</f:facet>
+						<ui:repeat var="la" value="#{l.autores}" varStatus="status">
+							<h:outputText value=", " rendered="#{status.index != 0}" />
+							<h:outputText value="#{la.nome}" />
+						</ui:repeat>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Preço" />
+						</f:facet>
+						<h:outputText value="#{l.preco}">
+							<f:convertNumber type="currency" locale="#{msg['locale.default']}"/>
+						</h:outputText>
+					</p:column>
+				</p:dataTable>
+			</h:panelGroup>
+
+			<h:panelGrid columns="3"
+				rendered="#{livroBean.cadastro || livroBean.edicao}">
+				
+				<h:outputLabel for="isbn" value="#{msg['livro.isbn']}:" />
+				<p:inputText id="isbn" value="#{livroBean.livro.isbn}"
+				 style="width:400px;"/>
+				<p:message for="isbn" />
+
+				<h:outputLabel for="titulo" value="#{msg.titulo}:" />
+				<p:inputText id="titulo" value="#{livroBean.livro.titulo}"
+				 style="width:400px;"/>
+				<p:message for="titulo" />
+
+				<h:outputLabel for="autores" value="Autores:" />
+				<p:selectManyMenu id="autores" value="#{livroBean.livro.autores}"
+					converter="#{autorConverter}" style="width:400px;">
+					<f:selectItems value="#{livroBean.autores}" var="a"
+						itemLabel="#{a.nome}" itemValue="#{a}" />
+				</p:selectManyMenu>
+				<p:message for="autores" />
+
+				<h:outputLabel for="editora" value="#{msg.editora}:" />
+				<p:selectOneMenu id="editora" value="#{livroBean.livro.editora}"
+					converter="#{editoraConverter}" style="width:400px;">
+					<f:selectItems value="#{livroBean.editoras}" var="ed"
+						itemLabel="#{ed.nome}" itemValue="#{ed}"/>
+				</p:selectOneMenu>
+				<p:message for="editora" />
+
+				<h:outputLabel for="dataPub" value="#{msg['data.publicacao']}:" />
+				<p:calendar id="dataPub" locale="#{msg['locale.default']}"
+					pattern="#{msg['data.pattern']}"
+					value="#{livroBean.livro.dataPublicacao}" navigator="true"
+					yearRange="c-100:c"/>
+				<p:message for="dataPub" />
+
+				<h:outputLabel for="preco" value="#{msg.preco}:" />
+				<p:inputText id="preco" value="#{livroBean.livro.preco}">
+					<f:convertNumber locale="#{msg['locale.default']}" />
+				</p:inputText>
+				<p:message for="preco" />
+
+				<p:commandButton value="Cadastrar"
+					actionListener="#{livroBean.cadastrar}" update="@form"
+					rendered="#{livroBean.cadastro}" />
+				<p:commandButton value="Atualizar"
+					actionListener="#{livroBean.atualizar}" update="@form"
+					rendered="#{livroBean.edicao}" />
+				<p:commandButton value="Cancelar"
+					actionListener="#{livroBean.telaListar}" update="@form"
+					immediate="true" />
+			</h:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

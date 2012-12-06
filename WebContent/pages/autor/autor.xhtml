@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/pages/home.xhtml">
+	<ui:define name="conteudo">
+		<f:facet name="header">Cadastro de Autores</f:facet>
+		<h:form>
+			<p:growl globalOnly="true"/>
+			<h:panelGroup rendered="#{autorBean.listar}">
+				<p:commandButton value="Cadastrar Autor" actionListener="#{autorBean.telaCadastrar}"
+					icon="ui-icon ui-icon-circle-plus" update="@form"/>
+
+				<p:contextMenu for="table">
+					<p:menuitem value="Editar" icon="ui-icon-pencil" actionListener="#{autorBean.telaEditar}"
+						update="@form"/>
+					<p:menuitem value="Remover" icon="ui-icon-close" update="@form"
+						actionListener="#{autorBean.remover}"/>
+				</p:contextMenu>
+
+				<p:dataTable id="table" rows="5" value="#{autorBean.autores}"
+					var="a" paginator="true" rowsPerPageTemplate="5,10,15"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowKey="#{a.id}" selection="#{autorBean.autor}"
+					selectionMode="single">
+					<f:facet name="header">
+					Autores cadastrados
+				</f:facet>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="ID" />
+						</f:facet>
+						<h:outputText value="#{a.id}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Nome" />
+						</f:facet>
+						<h:outputText value="#{a.nome}" />
+					</p:column>
+				</p:dataTable>
+			</h:panelGroup>
+			
+			<h:panelGrid columns="3" rendered="#{autorBean.cadastrar || autorBean.editar}">
+				<h:outputLabel for="nome" value="Nome:" />
+				<p:inputText id="nome"
+					value="#{autorBean.autor.nome}" />
+				<p:message for="nome" />
+				
+				<p:commandButton value="Cadastrar" actionListener="#{autorBean.cadastrar}"
+					update="@form" rendered="#{autorBean.cadastrar}"/>
+				<p:commandButton value="Atualizar" actionListener="#{autorBean.atualizar}"
+					update="@form" rendered="#{autorBean.editar}"/>
+				<p:commandButton value="Cancelar" actionListener="#{autorBean.telaListar}"
+					update="@form" immediate="true"/>
+			</h:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

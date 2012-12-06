@@ -3,7 +3,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:a4j="http://richfaces.org/a4j">
+	  xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/templates/public.xhtml">
 	<ui:define name="conteudo">
 		<h:form id="publicLivros">
@@ -12,7 +12,10 @@
 			<h:graphicImage id="img" value="/resources/img/livro.png" style="float:left; margin-right: 10px;" />
 			<h:outputText value="#{livrosBean.livro.titulo}" />
 			<br/>
-			<h:outputText value="#{livrosBean.livro.autor}" />
+			<ui:repeat var="la" value="#{livrosBean.livro.autores}" varStatus="status">
+				<h:outputText value=", " rendered="#{status.index != 0}" />
+				<h:outputText value="#{la.nome}" />
+			</ui:repeat>
 			<br/>
 			<h:outputText value="#{livrosBean.livro.editora.nome}" />
 			<br/>

@@ -5,15 +5,20 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import javax.faces.convert.FacesConverter;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import br.ufpe.nti.business.EditoraBC;
-import br.ufpe.nti.business.Fachada;
 import br.ufpe.nti.entity.Editora;
 
-@FacesConverter(forClass=Editora.class)
+@Component("editoraConverter")
 public class EditoraConverter implements Converter {
 
+	@Autowired
+	private EditoraBC bc;
+	public EditoraConverter(){}
+	
 	@Override
 	public Object getAsObject(FacesContext facesContext, UIComponent component,
 			String str) {
@@ -21,9 +26,10 @@ public class EditoraConverter implements Converter {
 		if(str != null && !str.trim().equals("")){
 			
 			try {
-				Long id = Long.parseLong(str);
-				EditoraBC bc = Fachada.getInstance().getEditoraBC();			
-				return bc.consultarPorId(id);
+				Long id = Long.parseLong(str);	
+				
+				Editora ed = this.bc.consultarPorId(id); 
+				return ed;
 			} catch (NumberFormatException e) {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Erro de conversão do objeto Editora",
@@ -49,4 +55,10 @@ public class EditoraConverter implements Converter {
 		}
 	}
 
+	public EditoraBC getEditoraBC() {
+		return bc;
+	}
+	public void setEditoraBC(EditoraBC editoraBC) {
+		this.bc = editoraBC;
+	}
 }

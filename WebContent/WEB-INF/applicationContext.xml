@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<!-- permitirá especificar configurações que possibilitem a instrumentação 
+		das classes -->
+	<context:load-time-weaver />
+
+	<!-- habilitar a configuração dos beans via anotação -->
+	<context:annotation-config />
+
+	<!-- especificamos onde o Spring deve fazer suas buscas por beans -->
+	<context:component-scan base-package="br.ufpe.nti" />
+	<!-- context:component-scan base-package= "sample.javamagazine.springjpa.dataaccess"/ -->
+
+	<!-- tem o papel de traduzir tais exceções para o Spring, fazendo com que 
+		se possa manipular as exceções -->
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<bean id="emf"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" />
+
+	<!-- irá definir o gerenciador de transação da aplicação. também tornará 
+		possível o uso de anotações para declarar transações, assim todos os beans 
+		anotados com @Transactional -->
+	<tx:annotation-driven transaction-manager="txManager"
+		proxy-target-class="true" />
+
+	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="emf" />
+	</bean>
+
+    <!-- View scope -->
+    <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="view">
+                    <bean class="br.ufpe.nti.ui.util.ViewScope"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+</beans>

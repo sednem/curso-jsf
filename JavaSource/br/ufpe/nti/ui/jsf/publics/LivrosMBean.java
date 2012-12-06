@@ -3,30 +3,31 @@ package br.ufpe.nti.ui.jsf.publics;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
-import br.ufpe.nti.business.Fachada;
+import br.ufpe.nti.business.LivroBC;
 import br.ufpe.nti.entity.Livro;
 
-@ManagedBean(name="livrosBean")
-@SessionScoped
+@Controller("livrosBean")
+@Scope("session")
 public class LivrosMBean implements Serializable {
 
 	private static final long serialVersionUID = -8412657829688905958L;
-	
+
+	private LivroBC livroBC;
 	private Livro livro;
 	private List<Livro> livros;
 	private int tipoVisualizacao;
 	private static final int LISTA = 1;
 	private static final int GRADE = 2;
 	
-
-	Fachada f = Fachada.getInstance();
-	
-	public LivrosMBean(){
+	@Autowired
+	public LivrosMBean(LivroBC livroBC){
+		this.livroBC = livroBC;
 		this.livro = new Livro();
-		this.livros = f.getLivroBC().listar();
+		this.livros = this.livroBC.listar();
 		this.tipoVisualizacao = LISTA;
 	}
 	

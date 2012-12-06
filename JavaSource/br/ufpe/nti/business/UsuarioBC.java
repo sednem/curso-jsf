@@ -3,16 +3,20 @@ package br.ufpe.nti.business;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import br.ufpe.nti.dao.UsuarioDAO;
 import br.ufpe.nti.entity.Usuario;
 
+@Service("usuarioBC")
 public class UsuarioBC implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	@Autowired
 	private UsuarioDAO uDAO;
 
 	public UsuarioBC(){
-		this.uDAO = new UsuarioDAO();
 	}
 	
 	/**
@@ -20,7 +24,7 @@ public class UsuarioBC implements Serializable {
 	 * @param u Usuario a ser persistido
 	 */
 	public void inserir(Usuario u){
-		this.uDAO.inserir(u);
+		this.uDAO.insert(u);
 	}
 	
 	/**
@@ -28,7 +32,7 @@ public class UsuarioBC implements Serializable {
 	 * @return Lista de Usuarios cadastrados
 	 */
 	public List<Usuario> listar(){
-		return this.uDAO.listar();
+		return this.uDAO.findAll();
 	}
 	
 	/**
@@ -54,5 +58,13 @@ public class UsuarioBC implements Serializable {
 		}else{
 			return false;
 		}
+	}
+
+	public void excluir(Usuario usuario) {
+		this.uDAO.delete(usuario);
+	}
+
+	public void atualizar(Usuario usuario) {
+		this.uDAO.update(usuario);
 	}
 }

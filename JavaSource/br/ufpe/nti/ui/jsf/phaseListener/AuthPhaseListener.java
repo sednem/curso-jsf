@@ -1,5 +1,4 @@
 package br.ufpe.nti.ui.jsf.phaseListener;
-import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
@@ -42,11 +41,11 @@ public class AuthPhaseListener implements PhaseListener{
 		
 
 		//Se não for tel delogin e não tiver usuário na sessão
-		if ((!isLoginPage && currentUser == null) && !isPublicPage) {
-			NavigationHandler nh = 
-					facesContext.getApplication().getNavigationHandler();
-			nh.handleNavigation(facesContext, null, "loginPage"); //retorna para a página de login
-		}
+//		if ((!isLoginPage && currentUser == null) && !isPublicPage) {
+//			NavigationHandler nh = 
+//					facesContext.getApplication().getNavigationHandler();
+//			nh.handleNavigation(facesContext, null, "loginPage"); //retorna para a página de login
+//		}
 	}
 	//Utilizado para indicar em qual fase o nosso PhaseListener
 	//será executado 

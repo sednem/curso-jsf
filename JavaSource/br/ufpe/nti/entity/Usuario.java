@@ -1,19 +1,43 @@
 package br.ufpe.nti.entity;
 
-import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 
-public class Usuario implements Serializable {
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.Size;
+
+@Entity
+@DiscriminatorValue("U")
+public class Usuario extends Pessoa {
 	private static final long serialVersionUID = 1L;
-
-	private String login;
-	private String senha;
-	private String nome;
-	private String email;
-	private String sexo;
-	private Date dataNascimento;
 	
-	public Usuario(){
+	@Size(min=1,message="{validation.campo.obrigatorio}")
+	private String login;
+	
+	@Size(min=1,message="{validation.campo.obrigatorio}")
+	private String senha;
+	
+	@OneToMany(mappedBy="usuario")
+	private List<Compra> compras;
+	
+	public Usuario(){}
+	
+	@Override
+	public boolean equals(Object obj) {
+		
+		return toString().equals(obj.toString());
+	}
+	
+	@Override
+	public int hashCode() {
+		return toString().hashCode();
+	}
+	
+	@Override
+	public String toString() {
+		return super.toString()
+				+ ":" + this.login;
 	}
 	
 	/*
@@ -34,35 +58,11 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
-	public String getNome() {
-		return nome;
+	public List<Compra> getCompras() {
+		return compras;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getSexo() {
-		return sexo;
-	}
-
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
-
-	public Date getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
+	public void setCompras(List<Compra> compras) {
+		this.compras = compras;
 	}
 }

@@ -1,27 +1,63 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+	<style type="text/css">
+* {
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+}
+</style>
 	<ui:insert name="head"></ui:insert>
-</h:head> 
-<body> 
-		<h:outputText id="msgUsuario" value="#{msg.bemVindo}, #{loginBean.usuario.nome}" />
+</h:head>
+<h:body>
+	<ui:insert name="menu">
+		<h:form id="formMenu">
+			<p:menubar>	
+				<p:menuitem id="btnHome" value="Home" url="/pages/home.jsf"
+					icon="ui-icon-home" />
+
+				<p:submenu label="CRUD">
+					<p:menuitem id="cadAutor" value="Cadastrar Autor"
+						url="/pages/autor/autor.jsf"/>
+					<p:menuitem id="cadEditora" value="Cadastrar Editora"
+						url="/pages/editora/editora.jsf" />
+					<p:menuitem id="cadUsuario" value="#{msg['cadastrar.usuario']}"
+						url="/pages/usuario/usuario.jsf" icon="ui-icon-person" />
+					<p:menuitem id="cadLivro" value="#{msg['cadastrar.livro']}"
+						url="/pages/livro/livro.jsf" />
+				</p:submenu>
+
+				<p:menuitem id="btnSair" value="#{msg.logout}"
+					action="#{loginBean.sair}" icon="ui-icon-close"
+					style="float:right;" />
+			</p:menubar>
+		</h:form>
 		<br />
-		<br />
-		<ui:insert name="menu">
-			<h:form id="formMenu">
-				<h:link id="cadUsuario" value="#{msg['cadastrar.usuario']}" outcome="/pages/usuario/cadastrar"/>
-				|
-				<h:link id="cadLivro" value="#{msg['cadastrar.livro']}" outcome="/pages/livro/listar"/>
-				|
-				<h:commandLink id="btnSair" value="#{msg.logout}" action="#{loginBean.sair}" immediate="true"/>			
-			</h:form>
-			<br />
-		</ui:insert>
+	</ui:insert>
+
+	<p:panel>
 		<ui:insert name="conteudo">
+			<f:facet name="header">Página Inicial</f:facet>
+			<h1>
+				<b>SIG@Books utilizando PrimeFaces 3</b>
+			</h1>
 		</ui:insert>
-</body> 
+	</p:panel>
+	<ui:insert name="footer">
+		<br/>
+		<h:form>
+			<p:menubar>
+				<p:menuitem id="itRodape">				
+					©2012 - SIG@Books - Núcleo de Tecnologia da Informação - UFPE 
+					(<a href="http://www.primefaces.org/"><i>PrimeFaces 3.4.1</i></a>)
+				</p:menuitem>
+			</p:menubar>
+		</h:form>
+	</ui:insert>
+</h:body>
 </html>

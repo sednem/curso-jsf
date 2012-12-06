@@ -3,8 +3,9 @@
 	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee  http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
-	<!-- :: Message Bundles :: --> 
+	<!-- :: Message Bundles :: -->
 	<application>
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 		<message-bundle>br.ufpe.nti.properties.system</message-bundle>
 		<locale-config>
 			<default-locale>pt_BR</default-locale>
@@ -18,93 +19,31 @@
 		</resource-bundle>
 	</application>
 	<!-- :: Fim: Message Bundles :: -->
-	
+
 	<!-- :: Phase Listerners :: -->
 	<lifecycle>
-		<phase-listener>
-		br.ufpe.nti.ui.jsf.phaseListener.AuthPhaseListener
-		</phase-listener>
+		<phase-listener>br.ufpe.nti.ui.jsf.phaseListener.AuthPhaseListener</phase-listener>
 	</lifecycle>
 	<!-- :: Fim: Phase Listerners :: -->
-	
+
 	<!-- :: Navigation Rules :: -->
-	<!-- Tela de cadastro de usuário-->
-	<navigation-rule>
-		<from-view-id>/pages/usuario/cadastrar.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{usuarioBean.cadastrar}</from-action>
-			<from-outcome>sucesso</from-outcome>
-			<to-view-id>/pages/tela-sucesso.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>erro</from-outcome>
-			<to-view-id>/pages/tela-erro.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<!-- Tela de cadastro de usuário RichFaces-->
-	<navigation-rule>
-		<from-view-id>/pages/richfaces/usuario/cadastrar.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{usuarioBean.cadastrar}</from-action>
-			<from-outcome>sucesso</from-outcome>
-			<to-view-id>/pages/richfaces/tela-sucesso.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>erro</from-outcome>
-			<to-view-id>/pages/richfaces/tela-erro.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<!-- Tela de cadastro de usuário-->
-	<navigation-rule>
-		<from-view-id>/pages/primefaces/usuario/cadastrar.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{usuarioBean.cadastrar}</from-action>
-			<from-outcome>sucesso</from-outcome>
-			<to-view-id>/pages/primefaces/tela-sucesso.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>erro</from-outcome>
-			<to-view-id>/pages/primefaces/tela-erro.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	
 	<!-- Tela de login -->
 	<navigation-rule>
 		<from-view-id>/*</from-view-id>
 		<navigation-case>
 			<from-outcome>loginPage</from-outcome>
-			<to-view-id>/pages/select.xhtml</to-view-id>
-			<redirect/>
+			<to-view-id>/pages/login.xhtml</to-view-id>
+			<redirect />
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<!-- Tela principal -->
 	<navigation-rule>
 		<from-view-id>/pages/login.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>index</from-outcome>
 			<to-view-id>/pages/home.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-	</navigation-rule>
-	
-	<!-- Tela principal RichFaces-->
-	<navigation-rule>
-		<from-view-id>/pages/richfaces/login.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>index</from-outcome>
-			<to-view-id>/pages/richfaces/home.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-	</navigation-rule>
-	
-	<!-- Tela principal PrimeFaces-->
-	<navigation-rule>
-		<from-view-id>/pages/primefaces/login.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>index</from-outcome>
-			<to-view-id>/pages/primefaces/home.xhtml</to-view-id>
-			<redirect/>
+			<redirect />
 		</navigation-case>
 	</navigation-rule>
 	<!-- :: Fim: Navigation Rules :: -->

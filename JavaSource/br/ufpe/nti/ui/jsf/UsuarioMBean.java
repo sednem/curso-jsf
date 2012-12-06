@@ -1,179 +1,84 @@
 package br.ufpe.nti.ui.jsf;
 
-import java.io.Serializable;
-import java.text.MessageFormat;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import java.util.List;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.ValueChangeEvent;
 
-import br.ufpe.nti.business.Fachada;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import br.ufpe.nti.business.UsuarioBC;
+import br.ufpe.nti.entity.Endereco;
 import br.ufpe.nti.entity.Usuario;
 
-@ManagedBean(name="usuarioBean")
-@SessionScoped
-public class UsuarioMBean implements Serializable {
-	private static final long serialVersionUID = 1L;
+@Controller("usuarioBean")
+@Scope("view")
+public class UsuarioMBean extends BaseBean{
 	
+	private static final long serialVersionUID = -3418114936424060328L;
+	
+	private UsuarioBC usuarioBC;
 	private Usuario usuario;
-	private String confSenha;
-	private ResourceBundle bundle;
+	private List<Usuario> usuarios;
+	private int estado;
 	
-	private Fachada f = Fachada.getInstance();
+	private static final int ESTADO_LISTAR = 0;
+	private static final int ESTADO_CADASTRAR = 1;
+	private static final int ESTADO_EDITAR = 2;
 	
-	//Contrutor do Managed Bean
-	public UsuarioMBean(){
+	@Autowired
+	public UsuarioMBean(UsuarioBC usuarioBC){
+		this.usuarioBC = usuarioBC;
+		this.estado = ESTADO_LISTAR;
+	}
+	
+	public void cadastrar(ActionEvent al){
+		this.usuarioBC.inserir(usuario);
+		addInfoMessage("Usuario cadastrado com sucesso.");
+		this.telaListar();
+	}
+	
+	public void atualizar(ActionEvent al){
+		this.usuarioBC.atualizar(usuario);
+		addInfoMessage("Usuario atualizado com sucesso.");
+		this.telaListar();
+	}
+	
+	public void remover(ActionEvent al){
+		this.usuarioBC.excluir(usuario);
+		addInfoMessage("Usuario excluído com sucesso.");
+		this.telaListar();
+	}
+	
+	public void telaListar(){
+		this.usuario = null;
+		this.estado = ESTADO_LISTAR;
+		this.usuarios = null;
+	}
+	
+	public void telaCadastrar(){
+		this.estado = ESTADO_CADASTRAR;
 		this.usuario = new Usuario();
+		this.usuario.setEndereco(new Endereco());
 	}
 	
-	/**
-	 * Cadastrar um novo usuario
-	 * @return Outcome da navigation rule
-	 */
-	public String cadastrar(){	
-		String outcome = "";
-		
-		if(this.validarUsuario(this.usuario, confSenha)){
-			f.getUsuarioBC().inserir(usuario);
-			
-			String msg = this.getValue("cadastrar.usuario.sucesso");
-			msg = MessageFormat.format(msg, usuario.getLogin());
-			
-			FacesMessage facesMsg = new FacesMessage(msg);
-			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-
-			this.usuario = new Usuario();
-		}
-		return outcome;
+	public void telaEditar(){
+		this.estado = ESTADO_EDITAR;
 	}
 	
-	
-	/**
-	 * Verifica a disponibilidade de um login
-	 * @param e ActionEvent
-	 */
-	public void verificarDisponibilidadeLogin(ActionEvent e){
-		if(existeNomeUsuario(this.getUsuario().getLogin())){
-			
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					this.getValue("cadastrar.usuario.username.indisponivel"), 
-					this.getValue("cadastrar.usuario.username.indisponivel"));
-			FacesContext.getCurrentInstance().addMessage("usuario", msg);
-			
-		}else{
-			
-			FacesMessage msg = new FacesMessage(
-					this.getValue("cadastrar.usuario.username.disponivel"));
-			FacesContext.getCurrentInstance().addMessage("usuario", msg);
-		}		
+	public boolean isListar(){
+		return this.estado == ESTADO_LISTAR;
 	}
 	
-	/**
-	 * Excuta quando um valor é alterado
-	 * @param ce ValueChangeEvent
-	 */
-	public void valorAlterado(ValueChangeEvent ce){
-		System.out.println();
-		System.out.println("Valor anterior: " + ce.getOldValue());
-		System.out.println("Valor novo: " + ce.getNewValue());
-		System.out.println("Valor login atual: " + this.usuario.getLogin());
-		System.out.println();
-		
+	public boolean isCadastrar(){
+		return this.estado == ESTADO_CADASTRAR;
 	}
 	
-	/**
-	 * Valida os dados de um novo usuario.
-	 * @param u
-	 * @param confSenha
-	 * @return true se os dados estiverem corretos ou false se os dados estiverem de forma incorreta
-	 */
-	private boolean validarUsuario(Usuario u, String confSenha){
-		boolean valido = true;
-		
-		//Verifica se o campo senha e confirmação de senha são iguais
-		if (!u.getSenha().equals(confSenha)) {
-			valido = false;
-			
-			FacesMessage msg = new FacesMessage(
-					FacesMessage.SEVERITY_ERROR,
-					this.getValue("cadastrar.usuario.erro.confirmacao.senha"),
-					this.getValue("cadastrar.usuario.erro.confirmacao.senha"));
-			FacesContext.getCurrentInstance().addMessage("senha", msg);
-		}
-		
-		//Verifica se já existe algum usário com o nome informado
-		if(this.existeNomeUsuario(u.getLogin())){
-			valido = false;
-			
-			String msg = this.getValue("cadastrar.usuario.erro.username");
-			msg = MessageFormat.format(msg, u.getLogin());
-			
-			FacesMessage facesMsg = new FacesMessage(
-					FacesMessage.SEVERITY_ERROR,
-					msg, msg);
-			FacesContext.getCurrentInstance().addMessage(null, facesMsg);			
-		}
-		
-		return valido;		
+	public boolean isEditar(){
+		return this.estado == ESTADO_EDITAR;
 	}
 
-	/**
-	 * Verifica se ja existe um usuário cadastrado com o nome informado
-	 * @param nomeUsuario Nome do usário
-	 * @return true se existir e false se não existir
-	 */
-	private boolean existeNomeUsuario(String nomeUsuario) {
-		boolean existe = false;
-		for (Usuario usuario : f.getUsuarioBC().listar()) {
-			if(usuario.getLogin().equals(nomeUsuario)){
-				existe = true;
-				break;
-			}
-		}
-		return existe;
-	}
-
-	/**
-	 * Recupera a referencia ao properties menssagens.properties
-	 * @return ResourceBundle
-	 */
-	public ResourceBundle getBundle() {
-		if (bundle == null) {
-			FacesContext context = FacesContext.getCurrentInstance();
-			bundle = context.getApplication().getResourceBundle(context, "msg");
-		}
-		return bundle;
-	}
-
-	/**
-	 * Recupera um valor do properties menssagens.properties
-	 * @param key
-	 * @return Valor da key selecionada
-	 */
-	public String getValue(String key) {
-
-		String result = null;
-		try {
-			result = getBundle().getString(key);
-		} catch (MissingResourceException e) {
-			result = "???" + key + "??? not found";
-		}
-		return result;
-	}
-	
-	public String testarMensagem(){
-		FacesMessage facesMsg = new FacesMessage("Tete Notify");
-		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-		
-		return "";
-	}
-
-	//Getters and Setters
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -182,15 +87,22 @@ public class UsuarioMBean implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public String getConfSenha() {
-		return confSenha;
+	public List<Usuario> getUsuarios() {
+		if(this.usuarios == null){
+			this.usuarios = usuarioBC.listar();
+		}
+		return usuarios;
 	}
 
-	public void setConfSenha(String confSenha) {
-		this.confSenha = confSenha;
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+	
+	public UsuarioBC getUsuarioBC() {
+		return usuarioBC;
 	}
 
-	public void setBundle(ResourceBundle bundle) {
-		this.bundle = bundle;
+	public void setUsuarioBC(UsuarioBC usuarioBC) {
+		this.usuarioBC = usuarioBC;
 	}
 }
